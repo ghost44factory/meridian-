@@ -1,342 +1,358 @@
-"use client";
-
-import { useEffect, useRef, useState, lazy, Suspense } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { TopNav } from "@/components/TopNav";
+import { TopNav, Logo } from "@/components/TopNav";
 import { RoiCalculator } from "@/components/RoiCalculator";
-
-const PortScene = lazy(() =>
-  import("@/components/PortScene").then((m) => ({ default: m.PortScene }))
-);
-
-const ZONES = [
-  { key: "hero", label: "Overview" },
-  { key: "ship", label: "Vessel" },
-  { key: "crane", label: "Quay" },
-  { key: "yard", label: "Yard" },
-  { key: "warehouse", label: "Warehouse" },
-  { key: "gate", label: "Gate" },
-] as const;
-
-function useSupports3D() {
-  const [ok, setOk] = useState(false);
-  useEffect(() => {
-    try {
-      const c = document.createElement("canvas");
-      const gl = c.getContext("webgl2") || c.getContext("webgl");
-      const isMobile = window.matchMedia("(max-width: 768px)").matches;
-      setOk(!!gl && !isMobile);
-    } catch {
-      setOk(false);
-    }
-  }, []);
-  return ok;
-}
+import {
+  FileSearch, Radar, Scale, BellRing, ArrowRight, Check,
+  Upload, Mail, MousePointerClick, Banknote, ShieldCheck,
+} from "lucide-react";
 
 export default function Home() {
-  const progressRef = useRef(0);
-  const { scrollYProgress } = useScroll();
-  const use3D = useSupports3D();
-  const [activeZone, setActiveZone] = useState(0);
-  const railHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-
-  useEffect(() => {
-    return scrollYProgress.on("change", (v) => {
-      // 3D journey occupies the first ~75% of total scroll (6 zones + calculator + footer below)
-      const journey = Math.min(1, v / 0.75);
-      progressRef.current = journey;
-      const idx = Math.min(ZONES.length - 1, Math.floor(journey * ZONES.length));
-      setActiveZone(idx);
-    });
-  }, [scrollYProgress]);
-
   return (
-    <div className="relative bg-navy text-paper">
+    <div className="bg-bg text-fg">
       <TopNav />
 
-      {use3D && (
-        <div className="fixed inset-0 z-0">
-          <Suspense fallback={<div className="h-full w-full bg-navy" />}>
-            <PortScene progressRef={progressRef} />
-          </Suspense>
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-navy/60 via-transparent to-navy/80" />
-        </div>
-      )}
-
-      {use3D && (
-        <div className="fixed right-6 top-1/2 z-40 hidden -translate-y-1/2 lg:block">
-          <div className="relative flex flex-col items-center">
-            <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-white/10" />
-            <motion.div
-              className="absolute left-1/2 top-0 w-px -translate-x-1/2 bg-cyan"
-              style={{ height: railHeight }}
-            />
-            {ZONES.map((z, i) => (
-              <div key={z.key} className="relative flex items-center gap-3" style={{ height: 60 }}>
-                <span
-                  className={`font-mono text-[10px] uppercase tracking-widest transition-all ${
-                    activeZone === i ? "text-cyan opacity-100" : "text-mist opacity-40"
-                  }`}
-                >
-                  {z.label}
-                </span>
-                <span
-                  className={`h-2 w-2 rounded-full border transition-all ${
-                    activeZone === i
-                      ? "border-cyan bg-cyan shadow-[0_0_12px_#4cd9e0]"
-                      : "border-white/30 bg-transparent"
-                  }`}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {use3D ? (
-        <div className="relative z-10">
-          <Overlay index={0} active={activeZone === 0}>
-            <HeroOverlay />
-          </Overlay>
-          <Overlay index={1} active={activeZone === 1} align="left">
-            <StatCard />
-          </Overlay>
-          <Overlay index={2} active={activeZone === 2} align="right">
-            <FeatureCard
-              tag="LIVE FREE-TIME"
-              title="Every container's clock, tracked automatically."
-              body="Live free-time countdowns for every box. Know before the charge hits — not after it lands on an invoice."
-            />
-          </Overlay>
-          <Overlay index={3} active={activeZone === 3} align="left">
-            <FeatureCard
-              tag="INVOICE RECONCILIATION"
-              title="Automatic invoice parsing."
-              body="Carrier invoices reconciled against your contract terms the moment they arrive. Line-by-line, in seconds."
-            />
-          </Overlay>
-          <Overlay index={4} active={activeZone === 4} align="right">
-            <FeatureCard
-              tag="ONE-CLICK DISPUTES"
-              title="Overcharges flagged. Claim letter drafted."
-              body="Every disputed charge cites the exact clause violated. 20–30% of contested charges get overturned."
-            />
-          </Overlay>
-          <Overlay index={5} active={activeZone === 5}>
-            <ClosingCTA />
-          </Overlay>
-        </div>
-      ) : (
-        <FallbackSections />
-      )}
-
-      <section id="roi" className="relative z-10 bg-navy px-6 py-24">
-        <div className="mx-auto max-w-3xl">
-          <div className="mb-10 text-center">
-            <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-amber">
-              The free retro-audit
+      {/* ---------- HERO ---------- */}
+      <header className="mx-auto max-w-6xl px-5 pb-16 pt-32 md:pt-40">
+        <div className="grid items-center gap-12 lg:grid-cols-2">
+          <div>
+            <div className="pill border border-border bg-surface text-muted">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-dot" />
+              AI-native freight intelligence
             </div>
-            <h2 className="mt-3 font-display text-3xl font-semibold md:text-4xl">
-              What could you recover?
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-mist">
-              Send us last quarter&apos;s demurrage &amp; detention invoices and we&apos;ll show
-              you what you could have recovered — free, in five days. Or estimate it now:
+            <h1 className="mt-5 text-[2.6rem] font-semibold leading-[1.05] md:text-6xl">
+              Stop paying shipping charges
+              <span className="text-accent"> you don&apos;t owe.</span>
+            </h1>
+            <p className="mt-5 max-w-md text-lg leading-relaxed text-muted">
+              Meridian tracks every container, audits every demurrage &amp; detention
+              invoice against your contracts, and drafts the dispute — automatically.
+              You review, click send, and get credited.
             </p>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <a
+                href="#audit"
+                className="flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-fg transition hover:brightness-105"
+              >
+                Audit last quarter free <ArrowRight className="h-4 w-4" />
+              </a>
+              <Link
+                href="/map"
+                className="rounded-full border border-border bg-surface px-6 py-3 text-sm font-medium transition hover:bg-surface-2"
+              >
+                See the live demo
+              </Link>
+            </div>
+            <div className="mt-6 flex items-center gap-2 text-xs text-muted">
+              <ShieldCheck className="h-4 w-4 text-accent" />
+              No charges recovered, no fee. We never touch your money.
+            </div>
           </div>
+
+          <div className="relative">
+            <div className="card overflow-hidden p-1.5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/shots/hero-dashboard.png"
+                alt="Meridian dashboard — live free-time countdowns and recovered charges"
+                className="w-full rounded-xl"
+              />
+            </div>
+            <div className="card absolute -bottom-6 -left-4 hidden w-64 p-4 md:block">
+              <div className="text-[11px] font-semibold uppercase tracking-wide text-muted">
+                Dispute resolved
+              </div>
+              <div className="mt-1 flex items-baseline gap-2">
+                <span className="font-mono text-2xl font-semibold text-accent">+£680</span>
+                <span className="text-xs text-muted">credited by carrier</span>
+              </div>
+              <TimelineMini />
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* ---------- STAT BAND ---------- */}
+      <section className="border-y border-border bg-surface">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-5 py-10 sm:grid-cols-3">
+          <Stat big="$22B" label="lost to demurrage & detention charges every year, industry-wide" />
+          <Stat big="20–30%" label="of charges are overturned when disputed with evidence" />
+          <Stat big="£150+" label="per container per day once free time runs out" />
+        </div>
+      </section>
+
+      {/* ---------- WHAT MERIDIAN DOES ---------- */}
+      <section id="product" className="mx-auto max-w-6xl px-5 py-24">
+        <div className="max-w-2xl">
+          <div className="text-sm font-semibold text-accent">What Meridian does</div>
+          <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
+            Your freight back-office, on autopilot
+          </h2>
+          <p className="mt-3 text-muted">
+            Forward us your shipping emails. Everything else happens automatically.
+          </p>
+        </div>
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
+          <Feature
+            icon={<Radar className="h-5 w-5" />}
+            title="Track every container"
+            body="Bookings and bills of lading are read automatically — every container appears with a live free-time countdown and vessel position. No data entry, ever."
+          />
+          <Feature
+            icon={<BellRing className="h-5 w-5" />}
+            title="Prevent charges before they start"
+            body="Email alerts before free time expires — '2 days left at Felixstowe, book your trucker' — so avoidable charges never happen."
+          />
+          <Feature
+            icon={<FileSearch className="h-5 w-5" />}
+            title="Audit every invoice"
+            body="Each demurrage & detention invoice is checked line-by-line against your contract free time, weekend and holiday exclusions, terminal timestamps and the FMC 30-day rules."
+          />
+          <Feature
+            icon={<Scale className="h-5 w-5" />}
+            title="Dispute in one click"
+            body="Overcharges are flagged with the exact clause violated. A formal dispute letter with the evidence pack attached is drafted for you — you review and send."
+          />
+        </div>
+      </section>
+
+      {/* ---------- HOW IT WORKS ---------- */}
+      <section id="how" className="border-y border-border bg-surface">
+        <div className="mx-auto max-w-6xl px-5 py-24">
+          <div className="max-w-2xl">
+            <div className="text-sm font-semibold text-accent">What you actually do</div>
+            <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
+              15 minutes a week. That&apos;s it.
+            </h2>
+          </div>
+          <div className="mt-12 grid gap-8 md:grid-cols-4">
+            <Step
+              n={1}
+              icon={<Mail className="h-5 w-5" />}
+              title="Forward your emails"
+              body="Auto-forward carrier emails to your Meridian address. Contracts uploaded once a year."
+            />
+            <Step
+              n={2}
+              icon={<Upload className="h-5 w-5" />}
+              title="We read & audit everything"
+              body="Shipments appear, clocks tick, and every invoice is audited the moment it arrives."
+            />
+            <Step
+              n={3}
+              icon={<MousePointerClick className="h-5 w-5" />}
+              title="You click send"
+              body="Review the findings and the drafted dispute letter. One click sends it to the right carrier channel."
+            />
+            <Step
+              n={4}
+              icon={<Banknote className="h-5 w-5" />}
+              title="You get credited"
+              body="The carrier credits you directly. Recovered money shows up on your dashboard — we invoice our share after."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- ROI / FREE AUDIT ---------- */}
+      <section id="audit" className="mx-auto max-w-4xl px-5 py-24">
+        <div className="text-center">
+          <div className="text-sm font-semibold text-accent">The free retro-audit</div>
+          <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
+            Find out what you could have recovered
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-muted">
+            Send us last quarter&apos;s D&amp;D invoices and contracts. In five days you get a
+            report with a number on it — free, no commitment. Or estimate it now:
+          </p>
+        </div>
+        <div className="mt-10">
           <RoiCalculator />
         </div>
       </section>
 
-      <footer className="relative z-10 border-t border-white/10 bg-navy py-8">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 md:flex-row">
-          <div className="flex items-center gap-2 text-sm text-mist">
-            <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
-            © 2026 Meridian Freight Intelligence
+      {/* ---------- PRICING ---------- */}
+      <section id="pricing" className="border-y border-border bg-surface">
+        <div className="mx-auto max-w-6xl px-5 py-24">
+          <div className="max-w-2xl">
+            <div className="text-sm font-semibold text-accent">Pricing</div>
+            <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
+              Self-funding by design
+            </h2>
+            <p className="mt-3 text-muted">
+              Every plan starts with the free retro-audit and a <strong className="text-fg">free first month</strong>.
+              Success fees apply only to money actually recovered.
+            </p>
           </div>
-          <div className="flex gap-6 text-xs text-mist">
-            <Link href="/app/login" className="hover:text-paper">
-              Sign in
-            </Link>
-            <a href="#" className="hover:text-paper">
-              Privacy
-            </a>
-            <a href="#" className="hover:text-paper">
-              Security
-            </a>
+          <div className="mt-10 grid gap-5 lg:grid-cols-4">
+            <Plan name="Starter" price="£500" unit="/mo" fee="20% of recovered" blurb="50–150 containers a month" />
+            <Plan name="Growth" price="£1,500" unit="/mo" fee="15% of recovered" blurb="150–600 containers a month" highlighted />
+            <Plan name="Scale" price="£3,500" unit="/mo" fee="12% of recovered" blurb="600–2,000 containers a month" />
+            <Plan name="Recover" price="£0" unit="/mo" fee="30% of recovered" blurb="Fully managed — we run everything, you approve. Pay only on results." />
           </div>
+        </div>
+      </section>
+
+      {/* ---------- PHASE 3 STRIP ---------- */}
+      <section className="mx-auto max-w-6xl px-5 py-16">
+        <div className="card flex flex-col items-start justify-between gap-5 p-8 md:flex-row md:items-center">
+          <div>
+            <div className="pill bg-accent-soft text-accent">In development</div>
+            <h3 className="mt-3 text-xl font-semibold">
+              Voyage demurrage for vessel owners &amp; charterers
+            </h3>
+            <p className="mt-1 max-w-xl text-sm text-muted">
+              The same audit engine, pointed at charter parties and laytime — where single
+              claims run $50k–$500k. Owners and charterers: join the design-partner pilot.
+            </p>
+          </div>
+          <a
+            href="mailto:hello@meridian.freight?subject=Voyage%20demurrage%20pilot"
+            className="shrink-0 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-medium transition hover:bg-surface-2"
+          >
+            Join the pilot →
+          </a>
+        </div>
+      </section>
+
+      {/* ---------- FAQ ---------- */}
+      <section className="mx-auto max-w-3xl px-5 pb-24">
+        <h2 className="text-2xl font-semibold">Questions, answered</h2>
+        <div className="mt-6 space-y-3">
+          <Faq q="Do you handle our money?" a="Never. Carriers credit or refund you directly. Meridian invoices its success fee afterwards, against recoveries evidenced by the carrier's own credit note." />
+          <Faq q="What do we have to upload?" a="Almost nothing by hand. Auto-forward carrier emails to your Meridian address; upload each carrier contract once a year. Everything else is extracted automatically." />
+          <Faq q="Is our data safe?" a="Each customer's data is isolated at the database level with row-level security, stored encrypted in a private bucket, UK/EU region. Your documents are never shared or used to train public models." />
+          <Faq q="What if we stop getting charges?" a="Perfect — that's the prevention layer doing its job. The subscription covers tracking, alerts and audit; the success fee only ever applies to what we actually recover." />
+        </div>
+      </section>
+
+      {/* ---------- FINAL CTA ---------- */}
+      <section className="border-t border-border bg-surface">
+        <div className="mx-auto max-w-3xl px-5 py-20 text-center">
+          <h2 className="text-3xl font-semibold md:text-4xl">
+            One quarter of invoices.<br />One number. Five days.
+          </h2>
+          <p className="mx-auto mt-4 max-w-md text-muted">
+            The audit is free whether or not you ever become a customer.
+          </p>
+          <a
+            href="mailto:hello@meridian.freight?subject=Free%20retro-audit"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-accent-fg transition hover:brightness-105"
+          >
+            Claim your free audit <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      </section>
+
+      <footer className="border-t border-border">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-8 md:flex-row">
+          <Logo />
+          <div className="flex gap-6 text-xs text-muted">
+            <Link href="/app/login" className="hover:text-fg">Sign in</Link>
+            <Link href="/map" className="hover:text-fg">Live demo</Link>
+            <a href="#" className="hover:text-fg">Security</a>
+            <a href="#" className="hover:text-fg">Privacy</a>
+          </div>
+          <div className="text-xs text-muted">© 2026 Meridian Freight Intelligence</div>
         </div>
       </footer>
     </div>
   );
 }
 
-function Overlay({
-  index,
-  active,
-  children,
-  align = "center",
+/* ---------- small pieces ---------- */
+
+function TimelineMini() {
+  const steps = ["Audited", "Sent", "Acknowledged", "Credited"];
+  return (
+    <div className="mt-3 flex items-center">
+      {steps.map((s, i) => (
+        <div key={s} className="flex flex-1 items-center">
+          <div className="flex flex-col items-center gap-1">
+            <span
+              className={`flex h-4 w-4 items-center justify-center rounded-full ${
+                i < 4 ? "bg-accent" : "bg-surface-2"
+              }`}
+            >
+              <Check className="h-2.5 w-2.5 text-accent-fg" />
+            </span>
+            <span className="text-[9px] text-muted">{s}</span>
+          </div>
+          {i < steps.length - 1 && <span className="mx-0.5 mb-4 h-px flex-1 bg-accent/40" />}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Stat({ big, label }: { big: string; label: string }) {
+  return (
+    <div className="text-center sm:text-left">
+      <div className="font-mono text-3xl font-semibold text-accent">{big}</div>
+      <div className="mt-1 text-sm leading-snug text-muted">{label}</div>
+    </div>
+  );
+}
+
+function Feature({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
+  return (
+    <div className="card p-6">
+      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-soft text-accent">
+        {icon}
+      </div>
+      <h3 className="mt-4 text-lg font-semibold">{title}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-muted">{body}</p>
+    </div>
+  );
+}
+
+function Step({ n, icon, title, body }: { n: number; icon: React.ReactNode; title: string; body: string }) {
+  return (
+    <div>
+      <div className="flex items-center gap-3">
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-sm font-bold text-accent-fg">
+          {n}
+        </span>
+        <span className="text-accent">{icon}</span>
+      </div>
+      <h3 className="mt-4 font-semibold">{title}</h3>
+      <p className="mt-1.5 text-sm leading-relaxed text-muted">{body}</p>
+    </div>
+  );
+}
+
+function Plan({
+  name, price, unit, fee, blurb, highlighted,
 }: {
-  index: number;
-  active: boolean;
-  children: React.ReactNode;
-  align?: "left" | "right" | "center";
+  name: string; price: string; unit: string; fee: string; blurb: string; highlighted?: boolean;
 }) {
-  const alignClass =
-    align === "left"
-      ? "md:justify-start md:pl-24"
-      : align === "right"
-      ? "md:justify-end md:pr-24"
-      : "justify-center";
   return (
-    <section
-      data-zone={index}
-      className={`pointer-events-none flex h-screen w-full items-center justify-center px-6 ${alignClass}`}
-    >
-      <AnimatePresence mode="wait">
-        {active && (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-auto max-w-xl"
-          >
-            {children}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </section>
-  );
-}
-
-function HeroOverlay() {
-  return (
-    <div className="mx-auto max-w-3xl text-center">
-      <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-mist backdrop-blur">
-        <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan opacity-75" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan" />
-        </span>
-        AI-Native Freight Intelligence
+    <div className={`card relative p-6 ${highlighted ? "ring-2 ring-accent" : ""}`}>
+      {highlighted && (
+        <span className="pill absolute -top-3 left-6 bg-accent text-accent-fg">Most popular</span>
+      )}
+      <div className="text-sm font-semibold text-muted">{name}</div>
+      <div className="mt-2 flex items-baseline gap-1">
+        <span className="text-3xl font-semibold">{price}</span>
+        <span className="text-sm text-muted">{unit}</span>
       </div>
-      <h1 className="font-display text-5xl font-semibold leading-[1.05] tracking-tight md:text-7xl">
-        Every container, tracked.
-        <br />
-        <span className="bg-gradient-to-r from-cyan via-[#a3f0f3] to-amber bg-clip-text text-transparent">
-          Every overcharge, contested.
-        </span>
-      </h1>
-      <p className="mx-auto mt-6 max-w-xl text-lg text-mist">
-        Meridian watches your shipments in real time, catches demurrage and detention charges
-        before they cost you, and drafts the dispute automatically.
-      </p>
-      <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-        <a
-          href="#roi"
-          className="rounded-full bg-cyan px-6 py-3 text-sm font-medium text-navy transition hover:brightness-110"
-        >
-          Get a free audit
-        </a>
-        <Link
-          href="/map"
-          className="rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm text-paper backdrop-blur transition hover:bg-white/10"
-        >
-          See live tracking →
-        </Link>
-      </div>
-      <div className="mt-16 font-mono text-[10px] uppercase tracking-[0.3em] text-mist/60">
-        ↓ Scroll to enter the port
-      </div>
+      <div className="mt-1 text-sm font-medium text-accent">+ {fee}</div>
+      <p className="mt-3 text-sm text-muted">{blurb}</p>
+      <ul className="mt-4 space-y-2 text-sm">
+        {["Free retro-audit", "First month free", "Cancel anytime"].map((f) => (
+          <li key={f} className="flex items-center gap-2 text-muted">
+            <Check className="h-3.5 w-3.5 text-accent" /> {f}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
 
-function StatCard() {
+function Faq({ q, a }: { q: string; a: string }) {
   return (
-    <div className="glass-panel rounded-2xl p-8">
-      <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-coral">The problem</div>
-      <div className="mt-4 font-display text-5xl font-semibold md:text-6xl">
-        $22B<span className="text-cyan">.</span>
-      </div>
-      <div className="mt-2 text-sm text-mist">
-        Lost industry-wide to detention &amp; demurrage every year.
-      </div>
-      <div className="mt-6 border-t border-white/10 pt-6 text-sm text-paper/90">
-        Meridian tracks every vessel and container in real time — from berth to gate — so the
-        charges never surprise you.
-      </div>
-    </div>
-  );
-}
-
-function FeatureCard({ tag, title, body }: { tag: string; title: string; body: string }) {
-  return (
-    <div className="glass-panel rounded-2xl p-8">
-      <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-cyan">{tag}</div>
-      <h2 className="mt-4 font-display text-3xl font-semibold leading-tight md:text-4xl">{title}</h2>
-      <p className="mt-4 text-base text-mist">{body}</p>
-    </div>
-  );
-}
-
-function ClosingCTA() {
-  return (
-    <div id="book" className="glass-panel mx-auto max-w-xl rounded-3xl p-10 text-center">
-      <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-cyan">Pilot program</div>
-      <h2 className="mt-4 font-display text-4xl font-semibold leading-tight md:text-5xl">
-        See your own shipments on the map.
-      </h2>
-      <p className="mt-4 text-mist">
-        We&apos;ll set up a free pilot with your live containers — no cost, no commitment.
-      </p>
-      <div className="mt-8 flex flex-wrap justify-center gap-3">
-        <a
-          href="mailto:hello@meridian.freight"
-          className="rounded-full bg-cyan px-6 py-3 text-sm font-medium text-navy transition hover:brightness-110"
-        >
-          Book a demo
-        </a>
-        <Link
-          href="/map"
-          className="rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm text-paper transition hover:bg-white/10"
-        >
-          Explore the live map
-        </Link>
-      </div>
-    </div>
-  );
-}
-
-function FallbackSections() {
-  return (
-    <div className="relative z-10 pt-32">
-      <div className="mx-auto max-w-5xl px-6">
-        <HeroOverlay />
-        <div className="mt-24 grid gap-6 md:grid-cols-2">
-          <StatCard />
-          <FeatureCard
-            tag="LIVE FREE-TIME"
-            title="Every container's clock, tracked automatically."
-            body="Live free-time countdowns for every box. Know before the charge hits — not after it lands on an invoice."
-          />
-          <FeatureCard
-            tag="INVOICE RECONCILIATION"
-            title="Automatic invoice parsing."
-            body="Carrier invoices reconciled against your contract terms the moment they arrive. Line-by-line, in seconds."
-          />
-          <FeatureCard
-            tag="ONE-CLICK DISPUTES"
-            title="Overcharges flagged. Claim letter drafted."
-            body="Every disputed charge cites the exact clause violated. 20–30% of contested charges get overturned."
-          />
-        </div>
-        <div className="my-24 flex justify-center">
-          <ClosingCTA />
-        </div>
-      </div>
-    </div>
+    <details className="card group p-5">
+      <summary className="cursor-pointer list-none font-medium">{q}</summary>
+      <p className="mt-2 text-sm leading-relaxed text-muted">{a}</p>
+    </details>
   );
 }

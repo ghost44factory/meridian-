@@ -51,7 +51,7 @@ export default function ShipmentsPage() {
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs outline-none"
+            className="rounded-full border border-border bg-surface-2 px-3 py-1.5 text-xs outline-none"
           >
             <option value="all">All statuses</option>
             {Object.entries(STATUS_LABELS)
@@ -64,15 +64,15 @@ export default function ShipmentsPage() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="search container / BL…"
-            className="w-56 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 font-mono text-xs outline-none placeholder:text-mist/60 focus:border-cyan"
+            className="w-56 rounded-full border border-border bg-surface-2 px-4 py-1.5 font-mono text-xs outline-none placeholder:text-mist/60 focus:border-cyan"
           />
         </div>
       </div>
 
-      <div className="mt-5 overflow-hidden rounded-xl border border-panel-border" style={{ background: "#101b30" }}>
+      <div className="mt-5 overflow-hidden rounded-xl border border-panel-border" style={{ background: "var(--surface)" }}>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-white/8 text-left font-mono text-[10px] uppercase tracking-wider text-mist">
+            <tr className="border-b border-border text-left font-mono text-[10px] uppercase tracking-wider text-mist">
               <th className="px-4 py-3 font-normal">Container</th>
               <th className="px-4 py-3 font-normal">Carrier</th>
               <th className="px-4 py-3 font-normal">Lane</th>
@@ -80,15 +80,15 @@ export default function ShipmentsPage() {
               <th className="px-4 py-3 font-normal">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5">
+          <tbody className="divide-y divide-border">
             {loading && (
               <tr><td colSpan={5} className="px-4 py-8 text-center text-mist">Loading…</td></tr>
             )}
             {filtered.map((s) => {
               const d = daysLeft(s.clock_start_at, s.free_time_days, s.gate_out_at);
-              const color = d === null ? "#8fa3be" : d < 0 ? "#ff5a5f" : d <= 3 ? "#f2a93c" : "#4cd9e0";
+              const color = d === null ? "var(--muted-fg)" : d < 0 ? "var(--danger)" : d <= 3 ? "var(--warn)" : "var(--accent)";
               return (
-                <tr key={s.id} className="hover:bg-white/[0.03]">
+                <tr key={s.id} className="hover:bg-surface-2/60">
                   <td className="px-4 py-3">
                     <Link href={`/app/shipments/${s.id}`} className="font-mono text-[13px] text-paper hover:text-cyan">
                       {s.container_no}
@@ -100,7 +100,7 @@ export default function ShipmentsPage() {
                     <span className="font-mono text-xs" style={{ color }}>
                       {d === null ? "not started" : d < 0 ? `${Math.abs(d)}d over` : `${d}d left`}
                     </span>
-                    <div className="mt-1 h-1 w-20 overflow-hidden rounded-full bg-white/8">
+                    <div className="mt-1 h-1 w-20 overflow-hidden rounded-full bg-surface-2">
                       <div
                         className="h-full rounded-full"
                         style={{

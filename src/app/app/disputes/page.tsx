@@ -84,7 +84,7 @@ export default function DisputesPage() {
               onDragOver={(e) => e.preventDefault()}
               onDrop={() => moveTo(col.key)}
               className="rounded-xl border border-panel-border p-3"
-              style={{ background: "#0d1627" }}
+              style={{ background: "var(--surface-2)" }}
             >
               <div className="mb-3 flex items-center justify-between px-1">
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-mist">{col.label}</span>
@@ -101,8 +101,8 @@ export default function DisputesPage() {
                       draggable={col.key !== "resolved"}
                       onDragStart={() => setDragId(d.id)}
                       onClick={() => setSelected(d)}
-                      className="cursor-pointer rounded-lg border border-white/8 p-3 transition hover:border-cyan/40"
-                      style={{ background: "#101b30" }}
+                      className="cursor-pointer rounded-lg border border-border p-3 transition hover:border-cyan/40"
+                      style={{ background: "var(--surface)" }}
                     >
                       <div className="font-mono text-xs">{d.invoices?.invoice_no ?? "Manual"}</div>
                       <div className="mt-0.5 text-[11px] text-mist">{d.invoices?.carrier ?? ""}</div>
@@ -140,7 +140,7 @@ export default function DisputesPage() {
                   {selected.invoices?.carrier} · deadline {formatDate(selected.deadline_at)} · claimed {formatCurrency(selected.amount_claimed)}
                 </div>
               </div>
-              <button onClick={() => setSelected(null)} className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs hover:bg-white/10">
+              <button onClick={() => setSelected(null)} className="rounded-full border border-border bg-surface-2 px-3 py-1 text-xs hover:bg-surface-2">
                 Close
               </button>
             </div>
@@ -150,14 +150,14 @@ export default function DisputesPage() {
               value={selected.letter_text ?? ""}
               onChange={(e) => setSelected({ ...selected, letter_text: e.target.value })}
               rows={12}
-              className="mt-2 w-full rounded-xl border border-white/15 bg-white/5 p-4 font-mono text-xs leading-relaxed outline-none focus:border-cyan"
+              className="mt-2 w-full rounded-xl border border-border bg-surface-2 p-4 font-mono text-xs leading-relaxed outline-none focus:border-cyan"
             />
             {selected.evidence_notes && (
               <div className="mt-2 text-[11px] text-mist">Evidence: {selected.evidence_notes}</div>
             )}
 
             <div className="mt-5 flex flex-wrap items-center gap-2">
-              <button onClick={saveLetter} className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs hover:bg-white/10">
+              <button onClick={saveLetter} className="rounded-full border border-border bg-surface-2 px-4 py-2 text-xs hover:bg-surface-2">
                 Save letter
               </button>
               {!selected.status.startsWith("resolved") && (
@@ -167,7 +167,7 @@ export default function DisputesPage() {
                       value={recoveredInput}
                       onChange={(e) => setRecoveredInput(e.target.value)}
                       placeholder={`recovered £ (default ${Math.round(Number(selected.amount_claimed))})`}
-                      className="w-44 rounded-full border border-white/15 bg-white/5 px-3 py-2 font-mono text-xs outline-none focus:border-cyan"
+                      className="w-44 rounded-full border border-border bg-surface-2 px-3 py-2 font-mono text-xs outline-none focus:border-cyan"
                     />
                     <button onClick={() => resolve(true)} className="rounded-full bg-cyan px-4 py-2 text-xs font-semibold text-navy hover:brightness-110">
                       Mark won

@@ -107,9 +107,9 @@ function generateVessels(): Vessel[] {
 }
 
 const STATUS_COLORS: Record<Vessel["status"], string> = {
-  on: "#4cd9e0",
-  risk: "#f2a93c",
-  demurrage: "#ff5a5f",
+  on: "var(--accent)",
+  risk: "var(--warn)",
+  demurrage: "var(--danger)",
   dim: "#3d5478",
 };
 
@@ -184,7 +184,7 @@ export default function MapPage() {
               className={`rounded-full border px-3 py-1.5 text-xs transition ${
                 filter === f
                   ? "border-cyan bg-cyan/20 text-cyan"
-                  : "border-white/15 bg-white/5 text-mist hover:bg-white/10"
+                  : "border-border bg-surface-2 text-mist hover:bg-surface-2"
               }`}
             >
               {f}
@@ -194,7 +194,7 @@ export default function MapPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="search vessel…"
-            className="w-52 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 font-mono text-xs text-paper outline-none placeholder:text-mist/60 focus:border-cyan"
+            className="w-52 rounded-full border border-border bg-surface-2 px-4 py-1.5 font-mono text-xs text-paper outline-none placeholder:text-mist/60 focus:border-cyan"
           />
         </div>
       </div>
@@ -249,9 +249,9 @@ export default function MapPage() {
         <div className="glass-panel absolute bottom-6 left-6 rounded-xl p-4">
           <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.25em] text-mist">Legend</div>
           <div className="space-y-1.5 text-xs">
-            <LegendRow color="#4cd9e0" label="On schedule" />
-            <LegendRow color="#f2a93c" label="Free-time risk" />
-            <LegendRow color="#ff5a5f" label="Active demurrage" />
+            <LegendRow color="var(--accent)" label="On schedule" />
+            <LegendRow color="var(--warn)" label="Free-time risk" />
+            <LegendRow color="var(--danger)" label="Active demurrage" />
             <LegendRow color="#3d5478" label="Background traffic" />
           </div>
         </div>
@@ -270,7 +270,7 @@ export default function MapPage() {
             <span className="text-mist">Your cargo</span>
             <span className="text-amber">{cargoCount} boxes</span>
           </div>
-          <div className="mt-2 flex justify-between gap-6 border-t border-white/10 pt-2">
+          <div className="mt-2 flex justify-between gap-6 border-t border-border pt-2">
             <span className="text-mist">UTC</span>
             <span className="text-paper">{clock || "--:--:--"}</span>
           </div>
@@ -300,7 +300,7 @@ function VesselPanel({ vessel, onClose }: { vessel: Vessel; onClose: () => void 
       animate={{ x: 0 }}
       exit={{ x: "100%" }}
       transition={{ type: "spring", stiffness: 220, damping: 30 }}
-      className="glass-panel fixed right-0 top-16 z-40 h-[calc(100vh-4rem)] w-full max-w-md overflow-y-auto border-l border-white/10 p-6"
+      className="glass-panel fixed right-0 top-16 z-40 h-[calc(100vh-4rem)] w-full max-w-md overflow-y-auto border-l border-border p-6"
     >
       <div className="flex items-start justify-between">
         <div>
@@ -310,7 +310,7 @@ function VesselPanel({ vessel, onClose }: { vessel: Vessel; onClose: () => void 
         </div>
         <button
           onClick={onClose}
-          className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs hover:bg-white/10"
+          className="rounded-full border border-border bg-surface-2 px-3 py-1 text-xs hover:bg-surface-2"
         >
           Close
         </button>
@@ -341,7 +341,7 @@ function VesselPanel({ vessel, onClose }: { vessel: Vessel; onClose: () => void 
         </div>
         <div className="mt-3 space-y-3">
           {vessel.containers?.map((c) => (
-            <div key={c.no} className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <div key={c.no} className="rounded-xl border border-border bg-surface-2/70 p-4">
               <div className="flex items-center justify-between">
                 <span className="font-mono text-sm">{c.no}</span>
                 <span
@@ -354,12 +354,12 @@ function VesselPanel({ vessel, onClose }: { vessel: Vessel; onClose: () => void 
               </div>
               <div className="mt-1 text-sm">{c.cargo}</div>
               <div className="font-mono text-xs text-mist">{c.weight}</div>
-              <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/5">
+              <div className="mt-2 h-1 overflow-hidden rounded-full bg-surface-2">
                 <div
                   className="h-full"
                   style={{
                     width: `${Math.max(6, Math.min(100, ((c.freeTimeHours + 48) / 144) * 100))}%`,
-                    background: c.risk === "on" ? "#4cd9e0" : c.risk === "risk" ? "#f2a93c" : "#ff5a5f",
+                    background: c.risk === "on" ? "var(--accent)" : c.risk === "risk" ? "var(--warn)" : "var(--danger)",
                   }}
                 />
               </div>
@@ -369,7 +369,7 @@ function VesselPanel({ vessel, onClose }: { vessel: Vessel; onClose: () => void 
       </div>
 
       <div className="mt-6 flex gap-2">
-        <button className="flex-1 rounded-full border border-white/15 bg-white/5 px-4 py-2.5 text-sm hover:bg-white/10">
+        <button className="flex-1 rounded-full border border-border bg-surface-2 px-4 py-2.5 text-sm hover:bg-surface-2">
           View full BL
         </button>
         <button className="flex-1 rounded-full bg-cyan px-4 py-2.5 text-sm font-medium text-navy hover:brightness-110">
@@ -389,7 +389,7 @@ function VesselPanel({ vessel, onClose }: { vessel: Vessel; onClose: () => void 
 
 function PanelStat({ label, value, valueClass = "text-paper" }: { label: string; value: string; valueClass?: string }) {
   return (
-    <div className="rounded-lg border border-white/10 bg-white/[0.02] px-3 py-2">
+    <div className="rounded-lg border border-border bg-surface-2/60 px-3 py-2">
       <div className="text-[9px] uppercase tracking-widest text-mist">{label}</div>
       <div className={`mt-1 ${valueClass}`}>{value}</div>
     </div>

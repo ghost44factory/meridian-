@@ -5,7 +5,7 @@ export const instant = false;
 
 export default function Page() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-navy" />}>
+    <Suspense fallback={<div className="min-h-screen bg-bg" />}>
       <InvoiceDetail />
     </Suspense>
   );

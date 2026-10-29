@@ -3,13 +3,31 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { ThemeToggle } from "@/components/ThemeToggle";
+
+export function Logo({ size = "base" }: { size?: "base" | "lg" }) {
+  return (
+    <span className="flex items-center gap-2.5">
+      <span
+        className={`relative flex items-center justify-center rounded-full bg-accent ${
+          size === "lg" ? "h-8 w-8" : "h-7 w-7"
+        }`}
+      >
+        <span className="h-2 w-2 rounded-full bg-accent-fg" />
+      </span>
+      <span className={`font-semibold tracking-tight ${size === "lg" ? "text-xl" : "text-[17px]"}`}>
+        Meridian
+      </span>
+    </span>
+  );
+}
 
 export function TopNav() {
   const [scrolled, setScrolled] = useState(false);
   const [authed, setAuthed] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     const sb = supabase();
@@ -23,40 +41,33 @@ export function TopNav() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "glass-panel" : "border-b border-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-200 ${
+        scrolled ? "border-border bg-surface/85 backdrop-blur-xl" : "border-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link href="/" className="flex items-center gap-2.5">
-          <span className="relative flex h-6 w-6 items-center justify-center rounded-full border border-cyan/60">
-            <span className="h-1.5 w-1.5 rounded-full bg-cyan glow-cyan" />
-          </span>
-          <span className="font-display text-lg font-semibold tracking-tight">Meridian</span>
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
+        <Link href="/">
+          <Logo />
         </Link>
-        <div className="hidden items-center gap-8 md:flex">
-          <a href="/#platform" className="text-sm text-mist transition hover:text-paper">
-            Platform
-          </a>
-          <a href="/#how" className="text-sm text-mist transition hover:text-paper">
-            How it works
-          </a>
-          <Link href="/map" className="text-sm text-mist transition hover:text-paper">
-            Live map
-          </Link>
+        <div className="hidden items-center gap-7 md:flex">
+          <a href="/#product" className="text-sm text-muted transition hover:text-fg">Product</a>
+          <a href="/#how" className="text-sm text-muted transition hover:text-fg">How it works</a>
+          <a href="/#pricing" className="text-sm text-muted transition hover:text-fg">Pricing</a>
+          <Link href="/map" className="text-sm text-muted transition hover:text-fg">Live demo</Link>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
+          <ThemeToggle />
           <Link
             href={authed ? "/app" : "/app/login"}
-            className="hidden rounded-full px-4 py-2 text-xs font-medium text-mist transition hover:text-paper md:inline-flex"
+            className="hidden rounded-full px-3.5 py-2 text-sm font-medium text-muted transition hover:text-fg md:inline-flex"
           >
             {authed ? "Dashboard" : "Sign in"}
           </Link>
           <a
-            href="/#book"
-            className="rounded-full bg-cyan px-4 py-2 text-xs font-medium text-navy transition hover:brightness-110"
+            href="/#audit"
+            className="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-fg transition hover:brightness-105"
           >
-            Book a demo
+            Get a free audit
           </a>
         </div>
       </div>

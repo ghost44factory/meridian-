@@ -26,7 +26,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-navy px-4">
+    <div className="flex min-h-screen items-center justify-center bg-bg px-4">
       <div className="w-full max-w-sm">
         <Link href="/" className="mb-8 flex items-center justify-center gap-2.5">
           <span className="relative flex h-7 w-7 items-center justify-center rounded-full border border-cyan/60">
@@ -42,7 +42,7 @@ export default function LoginPage() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2.5 font-mono text-sm outline-none focus:border-cyan"
+            className="mt-1 w-full rounded-lg border border-border bg-surface-2 px-3 py-2.5 font-mono text-sm outline-none focus:border-cyan"
             autoComplete="email"
           />
           <label className="mt-4 block text-xs text-mist">Password</label>
@@ -50,7 +50,7 @@ export default function LoginPage() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2.5 font-mono text-sm outline-none focus:border-cyan"
+            className="mt-1 w-full rounded-lg border border-border bg-surface-2 px-3 py-2.5 font-mono text-sm outline-none focus:border-cyan"
             autoComplete="current-password"
           />
           {error && <div className="mt-3 text-xs text-coral">{error}</div>}

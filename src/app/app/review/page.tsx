@@ -69,7 +69,7 @@ export default function ReviewPage() {
                   <input
                     value={String(v)}
                     onChange={(e) => setField(doc.id, k, e.target.value)}
-                    className="flex-1 rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 font-mono text-xs outline-none focus:border-cyan"
+                    className="flex-1 rounded-lg border border-border bg-surface-2 px-3 py-1.5 font-mono text-xs outline-none focus:border-cyan"
                   />
                 </div>
               ))}
@@ -83,7 +83,7 @@ export default function ReviewPage() {
               </button>
               <button
                 onClick={() => act(doc, "pending")}
-                className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs hover:bg-white/10"
+                className="rounded-full border border-border bg-surface-2 px-4 py-2 text-xs hover:bg-surface-2"
               >
                 Re-queue
               </button>

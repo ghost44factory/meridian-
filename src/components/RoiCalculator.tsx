@@ -31,7 +31,7 @@ export function RoiCalculator() {
               step={50}
               value={containers}
               onChange={(e) => setContainers(Number(e.target.value))}
-              className="w-full accent-[#4cd9e0]"
+              className="w-full"
             />
           </div>
           <div>
@@ -46,7 +46,7 @@ export function RoiCalculator() {
               step={1000}
               value={monthlyDnD}
               onChange={(e) => setMonthlyDnD(Number(e.target.value))}
-              className="w-full accent-[#4cd9e0]"
+              className="w-full"
             />
           </div>
           <p className="text-xs leading-relaxed text-mist/70">
@@ -55,7 +55,7 @@ export function RoiCalculator() {
             these estimates with your real numbers.
           </p>
         </div>
-        <div className="flex flex-col justify-center gap-5 border-white/10 md:border-l md:pl-8">
+        <div className="flex flex-col justify-center gap-5 border-border md:border-l md:pl-8">
           <div>
             <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-mist">
               Estimated recovery / year

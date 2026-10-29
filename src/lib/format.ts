@@ -23,10 +23,10 @@ export function daysLeft(clockStart: string | null, freeTimeDays: number, endAt?
 }
 
 export function riskColor(days: number | null): string {
-  if (days === null) return "var(--color-mist)";
-  if (days < 0) return "var(--color-coral)";
-  if (days <= 3) return "var(--color-amber)";
-  return "var(--color-cyan)";
+  if (days === null) return "var(--muted-fg)";
+  if (days < 0) return "var(--danger)";
+  if (days <= 3) return "var(--warn)";
+  return "var(--accent)";
 }
 
 export const STATUS_LABELS: Record<string, string> = {

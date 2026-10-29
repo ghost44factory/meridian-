@@ -131,7 +131,7 @@ Northwind Logistics`;
         <Panel className="p-5 lg:col-span-2">
           <div className="text-sm font-semibold">Line items</div>
           <table className="mt-3 w-full text-sm">
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-border">
               {items.map((it, i) => (
                 <tr key={i}>
                   <td className="py-2.5 text-paper/90">{it.desc}</td>
@@ -170,7 +170,7 @@ Northwind Logistics`;
         <button
           onClick={() => setStatus("needs_review")}
           disabled={busy}
-          className="rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm transition hover:bg-white/10 disabled:opacity-50"
+          className="rounded-full border border-border bg-surface-2 px-5 py-2.5 text-sm transition hover:bg-surface-2 disabled:opacity-50"
         >
           Send to review
         </button>

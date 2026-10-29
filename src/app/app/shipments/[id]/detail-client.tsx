@@ -74,7 +74,7 @@ export function ShipmentDetail() {
           <div className="text-sm font-semibold">Free time</div>
           <div
             className="mt-3 font-mono text-3xl font-semibold"
-            style={{ color: d === null ? "#8fa3be" : d < 0 ? "#ff5a5f" : d <= 3 ? "#f2a93c" : "#4cd9e0" }}
+            style={{ color: d === null ? "var(--muted-fg)" : d < 0 ? "var(--danger)" : d <= 3 ? "var(--warn)" : "var(--accent)" }}
           >
             {d === null ? "—" : d < 0 ? `${Math.abs(d)}d over` : `${d}d left`}
           </div>
@@ -84,7 +84,7 @@ export function ShipmentDetail() {
           <div className="mt-6 space-y-3">
             {milestones.map(([label, when], i) => (
               <div key={i} className="flex items-center gap-3 text-sm">
-                <span className={`h-2 w-2 rounded-full ${when ? "bg-cyan" : "bg-white/15"}`} />
+                <span className={`h-2 w-2 rounded-full ${when ? "bg-cyan" : "bg-surface-2"}`} />
                 <span className={when ? "text-paper" : "text-mist/50"}>{label}</span>
                 <span className="ml-auto font-mono text-xs text-mist">{formatDate(when)}</span>
               </div>
@@ -100,7 +100,7 @@ export function ShipmentDetail() {
               <Link
                 key={i.id}
                 href={`/app/invoices/${i.id}`}
-                className="flex items-center justify-between rounded-lg border border-white/8 p-3 text-sm hover:bg-white/[0.03]"
+                className="flex items-center justify-between rounded-lg border border-border p-3 text-sm hover:bg-surface-2/60"
               >
                 <span className="font-mono text-[13px]">{String(i.invoice_no)}</span>
                 <span className="flex items-center gap-3">
@@ -117,7 +117,7 @@ export function ShipmentDetail() {
           <div className="mt-3 space-y-2">
             {documents.length === 0 && <div className="text-xs text-mist">No documents linked.</div>}
             {documents.map((doc) => (
-              <div key={doc.id} className="flex items-center justify-between rounded-lg border border-white/8 p-3 text-sm">
+              <div key={doc.id} className="flex items-center justify-between rounded-lg border border-border p-3 text-sm">
                 <span className="capitalize text-paper/90">{String(doc.type)}</span>
                 <StatusPill status={String(doc.extraction_status)} label={String(doc.extraction_status).replace("_", " ")} />
               </div>

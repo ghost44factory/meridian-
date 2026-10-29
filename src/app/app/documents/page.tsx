@@ -71,7 +71,7 @@ export default function DocumentsPage() {
               key={t}
               onClick={() => setTab(t)}
               className={`rounded-full border px-4 py-1.5 text-xs capitalize transition ${
-                tab === t ? "border-cyan bg-cyan/15 text-cyan" : "border-white/15 bg-white/5 text-mist hover:bg-white/10"
+                tab === t ? "border-cyan bg-cyan/15 text-cyan" : "border-border bg-surface-2 text-mist hover:bg-surface-2"
               }`}
             >
               {t}
@@ -84,7 +84,7 @@ export default function DocumentsPage() {
         <>
           <div
             onClick={() => fileRef.current?.click()}
-            className="mt-5 flex cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-white/20 bg-white/[0.02] py-10 transition hover:border-cyan/50"
+            className="mt-5 flex cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-border bg-surface-2/60 py-10 transition hover:border-cyan/50"
           >
             <Upload className="h-6 w-6 text-mist" />
             <div className="mt-2 text-sm text-paper/90">{uploading ? "Uploading…" : "Drop files or click to upload"}</div>
@@ -93,10 +93,10 @@ export default function DocumentsPage() {
           </div>
           {notice && <div className="mt-3 text-xs text-amber">{notice}</div>}
 
-          <div className="mt-5 overflow-hidden rounded-xl border border-panel-border" style={{ background: "#101b30" }}>
+          <div className="mt-5 overflow-hidden rounded-xl border border-panel-border" style={{ background: "var(--surface)" }}>
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-white/8 text-left font-mono text-[10px] uppercase tracking-wider text-mist">
+                <tr className="border-b border-border text-left font-mono text-[10px] uppercase tracking-wider text-mist">
                   <th className="px-4 py-3 font-normal">File</th>
                   <th className="px-4 py-3 font-normal">Type</th>
                   <th className="px-4 py-3 font-normal">Uploaded</th>
@@ -104,9 +104,9 @@ export default function DocumentsPage() {
                   <th className="px-4 py-3 font-normal">Confidence</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5">
+              <tbody className="divide-y divide-border">
                 {docs.map((d) => (
-                  <tr key={d.id} className="hover:bg-white/[0.03]">
+                  <tr key={d.id} className="hover:bg-surface-2/60">
                     <td className="max-w-xs truncate px-4 py-3 font-mono text-xs">{d.file_path?.split("/").pop() ?? "—"}</td>
                     <td className="px-4 py-3 capitalize text-mist">{d.type}</td>
                     <td className="px-4 py-3 font-mono text-xs text-mist">{formatDate(d.uploaded_at)}</td>
@@ -145,7 +145,7 @@ export default function DocumentsPage() {
                   </div>
                 ))}
               </div>
-              {c.notes && <div className="mt-3 border-t border-white/8 pt-3 text-xs text-mist">{c.notes}</div>}
+              {c.notes && <div className="mt-3 border-t border-border pt-3 text-xs text-mist">{c.notes}</div>}
             </Panel>
           ))}
         </div>

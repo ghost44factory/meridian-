@@ -1,29 +1,21 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
 });
 
-const ibmPlexSans = IBM_Plex_Sans({
-  variable: "--font-ibm-plex-sans",
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-});
-
-const ibmPlexMono = IBM_Plex_Mono({
-  variable: "--font-ibm-plex-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
-  title: "Meridian — AI-native freight intelligence",
+  title: "Meridian — Recover the shipping charges you don't owe",
   description:
-    "Meridian watches your shipments in real time, catches demurrage and detention charges before they cost you, and drafts the dispute automatically.",
+    "Meridian tracks your containers, audits every demurrage & detention invoice against your contracts, and drafts the dispute for you. Free audit of last quarter's invoices.",
   openGraph: {
     title: "Meridian — AI-native freight intelligence",
     description: "Every container tracked. Every overcharge contested.",
@@ -31,14 +23,17 @@ export const metadata: Metadata = {
   },
 };
 
+const themeInit = `(function(){try{var t=localStorage.getItem('meridian-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${spaceGrotesk.variable} ${ibmPlexSans.variable} ${ibmPlexMono.variable} antialiased`}
-      >
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+      </head>
+      <body className={`${geist.variable} ${geistMono.variable} antialiased`}>
         {children}
       </body>
     </html>

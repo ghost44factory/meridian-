@@ -60,15 +60,15 @@ export default function AdminConsole() {
       <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Kpi label="Customers" value={String(orgs.length)} />
         <Kpi label="Active shipments" value={String(shipments.filter((s) => s.status !== "closed").length)} />
-        <Kpi label="Disputable queue" value={String(openDisputable.length)} tone="#f2a93c" />
-        <Kpi label="Recovered (all-time)" value={formatCurrency(totalRecovered)} tone="#4cd9e0" />
+        <Kpi label="Disputable queue" value={String(openDisputable.length)} tone="var(--warn)" />
+        <Kpi label="Recovered (all-time)" value={formatCurrency(totalRecovered)} tone="var(--accent)" />
       </div>
 
-      <div className="mt-6 overflow-hidden rounded-xl border border-panel-border" style={{ background: "#101b30" }}>
-        <div className="border-b border-white/8 px-5 py-3.5 text-sm font-semibold">Customers</div>
+      <div className="mt-6 overflow-hidden rounded-xl border border-panel-border" style={{ background: "var(--surface)" }}>
+        <div className="border-b border-border px-5 py-3.5 text-sm font-semibold">Customers</div>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-white/8 text-left font-mono text-[10px] uppercase tracking-wider text-mist">
+            <tr className="border-b border-border text-left font-mono text-[10px] uppercase tracking-wider text-mist">
               <th className="px-5 py-3 font-normal">Organisation</th>
               <th className="px-5 py-3 font-normal">Active shipments</th>
               <th className="px-5 py-3 font-normal">Disputable invoices</th>
@@ -77,7 +77,7 @@ export default function AdminConsole() {
               <th className="px-5 py-3 font-normal">£ recovered</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5">
+          <tbody className="divide-y divide-border">
             {orgs.map((o) => {
               const inv = invoices.filter((i) => i.org_id === o.id);
               const disp = disputes.filter((d) => d.org_id === o.id);
@@ -85,7 +85,7 @@ export default function AdminConsole() {
                 .filter((i) => i.audit_status === "disputable")
                 .reduce((a, i) => a + Number(i.disputable_amount ?? 0), 0);
               return (
-                <tr key={o.id} className="hover:bg-white/[0.03]">
+                <tr key={o.id} className="hover:bg-surface-2/60">
                   <td className="px-5 py-3 font-medium">{o.name}</td>
                   <td className="px-5 py-3 font-mono text-xs">
                     {shipments.filter((s) => s.org_id === o.id && s.status !== "closed").length}
@@ -118,9 +118,9 @@ export default function AdminConsole() {
 
 function Kpi({ label, value, tone }: { label: string; value: string; tone?: string }) {
   return (
-    <div className="rounded-xl border border-panel-border p-4" style={{ background: "#101b30" }}>
+    <div className="rounded-xl border border-panel-border p-4" style={{ background: "var(--surface)" }}>
       <div className="text-xs text-mist">{label}</div>
-      <div className="mt-2 font-mono text-2xl font-medium" style={{ color: tone ?? "#eaf1f7" }}>
+      <div className="mt-2 font-mono text-2xl font-medium" style={{ color: tone ?? "var(--fg)" }}>
         {value}
       </div>
     </div>

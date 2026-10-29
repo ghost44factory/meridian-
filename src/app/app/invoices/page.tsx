@@ -52,7 +52,7 @@ export default function InvoicesPage() {
               className={`rounded-full border px-4 py-1.5 text-xs transition ${
                 tab === t.key
                   ? "border-cyan bg-cyan/15 text-cyan"
-                  : "border-white/15 bg-white/5 text-mist hover:bg-white/10"
+                  : "border-border bg-surface-2 text-mist hover:bg-surface-2"
               }`}
             >
               {t.label} <span className="ml-1 font-mono">{count}</span>
@@ -71,7 +71,7 @@ export default function InvoicesPage() {
             key={i.id}
             href={`/app/invoices/${i.id}`}
             className="rounded-xl border border-panel-border p-4 transition hover:border-cyan/40"
-            style={{ background: "#101b30" }}
+            style={{ background: "var(--surface)" }}
           >
             <div className="flex items-start justify-between">
               <div>

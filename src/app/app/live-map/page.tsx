@@ -77,7 +77,7 @@ export default function AppLiveMap() {
         const p = pointOnPath(lane, t);
         const jitter = ((hash(s.container_no) % 100) - 50) / 12;
         const color =
-          s.status === "in_demurrage" ? "#ff5a5f" : s.status === "at_risk" ? "#f2a93c" : "#4cd9e0";
+          s.status === "in_demurrage" ? "var(--danger)" : s.status === "at_risk" ? "var(--warn)" : "var(--accent)";
         return { ...s, x: p.x + jitter, y: p.y + jitter / 2, angle: p.angle, color };
       }),
     [rows]
@@ -94,7 +94,7 @@ export default function AppLiveMap() {
         </div>
       </div>
 
-      <div className="relative mt-5 overflow-hidden rounded-xl border border-panel-border" style={{ background: "#0b1220" }}>
+      <div className="relative mt-5 overflow-hidden rounded-xl border border-panel-border" style={{ background: "#0b0d12" }}>
         <svg viewBox="0 0 1000 500" className="w-full">
           <defs>
             <pattern id="agrid" width="40" height="40" patternUnits="userSpaceOnUse">

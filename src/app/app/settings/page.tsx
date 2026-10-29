@@ -42,7 +42,7 @@ export default function SettingsPage() {
               max={7}
               value={threshold}
               onChange={(e) => setThreshold(Number(e.target.value))}
-              className="w-full accent-[#4cd9e0]"
+              className="w-full"
             />
             <p className="mt-3 text-xs text-mist">
               Alert delivery channels (email / WhatsApp) are configured in the next build.

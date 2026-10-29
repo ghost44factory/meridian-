@@ -48,35 +48,35 @@ export default function Overview() {
 
       <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-5">
         <Kpi label="Containers in transit" value={loading ? "—" : String(inTransit)} />
-        <Kpi label="At risk" value={loading ? "—" : String(atRisk.length)} tone="#f2a93c" />
-        <Kpi label="£ exposure" value={loading ? "—" : formatCurrency(exposure)} tone="#ff5a5f" />
-        <Kpi label="£ recovered" value={loading ? "—" : formatCurrency(recovered)} tone="#4cd9e0" />
+        <Kpi label="At risk" value={loading ? "—" : String(atRisk.length)} tone="var(--warn)" />
+        <Kpi label="£ exposure" value={loading ? "—" : formatCurrency(exposure)} tone="var(--danger)" />
+        <Kpi label="£ recovered" value={loading ? "—" : formatCurrency(recovered)} tone="var(--accent)" />
         <Kpi label="Disputes in flight" value={loading ? "—" : String(inFlight)} />
       </div>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-2">
         <Panel className="overflow-hidden">
-          <div className="border-b border-white/8 px-5 py-3.5 text-sm font-semibold">Needs action</div>
-          <div className="divide-y divide-white/5">
+          <div className="border-b border-border px-5 py-3.5 text-sm font-semibold">Needs action</div>
+          <div className="divide-y divide-border">
             {atRisk
               .sort((a, b) => (daysLeft(a.clock_start_at, a.free_time_days) ?? 99) - (daysLeft(b.clock_start_at, b.free_time_days) ?? 99))
               .slice(0, 6)
               .map((s) => {
                 const d = daysLeft(s.clock_start_at, s.free_time_days);
                 return (
-                  <Link key={s.id} href={`/app/shipments/${s.id}`} className="flex items-center justify-between px-5 py-3 text-sm hover:bg-white/[0.03]">
+                  <Link key={s.id} href={`/app/shipments/${s.id}`} className="flex items-center justify-between px-5 py-3 text-sm hover:bg-surface-2/60">
                     <div>
                       <span className="font-mono text-[13px]">{s.container_no}</span>
                       <span className="ml-3 text-xs text-mist">{s.carrier} → {s.destination_port}</span>
                     </div>
-                    <span className="font-mono text-xs" style={{ color: d !== null && d < 0 ? "#ff5a5f" : "#f2a93c" }}>
+                    <span className="font-mono text-xs" style={{ color: d !== null && d < 0 ? "var(--danger)" : "var(--warn)" }}>
                       {d === null ? "—" : d < 0 ? `${Math.abs(d)}d over` : `${d}d left`}
                     </span>
                   </Link>
                 );
               })}
             {disputable.slice(0, 3).map((i) => (
-              <Link key={i.id} href={`/app/invoices/${i.id}`} className="flex items-center justify-between px-5 py-3 text-sm hover:bg-white/[0.03]">
+              <Link key={i.id} href={`/app/invoices/${i.id}`} className="flex items-center justify-between px-5 py-3 text-sm hover:bg-surface-2/60">
                 <div>
                   <span className="font-mono text-[13px]">{i.invoice_no}</span>
                   <span className="ml-3 text-xs text-mist">{i.carrier} · awaiting decision</span>
@@ -91,8 +91,8 @@ export default function Overview() {
         </Panel>
 
         <Panel className="overflow-hidden">
-          <div className="border-b border-white/8 px-5 py-3.5 text-sm font-semibold">Disputes</div>
-          <div className="divide-y divide-white/5">
+          <div className="border-b border-border px-5 py-3.5 text-sm font-semibold">Disputes</div>
+          <div className="divide-y divide-border">
             {disputes.slice(0, 8).map((d) => (
               <div key={d.id} className="flex items-center justify-between px-5 py-3 text-sm">
                 <StatusPill status={d.status} label={STATUS_LABELS[d.status] ?? d.status} />
@@ -105,7 +105,7 @@ export default function Overview() {
               </div>
             ))}
           </div>
-          <Link href="/app/disputes" className="block border-t border-white/8 px-5 py-3 text-xs text-cyan hover:bg-white/[0.03]">
+          <Link href="/app/disputes" className="block border-t border-border px-5 py-3 text-xs text-cyan hover:bg-surface-2/60">
             Open dispute pipeline →
           </Link>
         </Panel>
@@ -116,9 +116,9 @@ export default function Overview() {
 
 function Kpi({ label, value, tone }: { label: string; value: string; tone?: string }) {
   return (
-    <div className="rounded-xl border border-panel-border p-4" style={{ background: "#101b30" }}>
+    <div className="rounded-xl border border-panel-border p-4" style={{ background: "var(--surface)" }}>
       <div className="text-xs text-mist">{label}</div>
-      <div className="mt-2 font-mono text-2xl font-medium" style={{ color: tone ?? "#eaf1f7" }}>
+      <div className="mt-2 font-mono text-2xl font-medium" style={{ color: tone ?? "var(--fg)" }}>
         {value}
       </div>
     </div>
