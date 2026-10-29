@@ -115,8 +115,47 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ---------- LIVE MAP ---------- */}
+      <section className="border-t border-border bg-surface">
+        <div className="mx-auto max-w-6xl px-5 py-24">
+          <div className="grid items-center gap-12 lg:grid-cols-5">
+            <div className="lg:col-span-2">
+              <div className="text-sm font-semibold text-accent">The live map</div>
+              <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
+                Your whole shipping world, on one screen
+              </h2>
+              <p className="mt-4 text-muted">
+                Every vessel carrying your containers, live. A mid-size forwarder&apos;s
+                entire operation — hundreds of boxes on dozens of ships — becomes one glance.
+              </p>
+              <ul className="mt-6 space-y-3">
+                <MapPoint title="Colour is risk" body="Green is on schedule, amber means free time is running out, red means charges are accruing right now." />
+                <MapPoint title="Click any vessel" body="See exactly which of your containers are on board, their cargo, and each one's free-time countdown." />
+                <MapPoint title="From estimate to live" body="Positions switch to real-time AIS satellite data the moment your account goes live." />
+              </ul>
+              <Link
+                href="/map"
+                className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-fg transition hover:brightness-105"
+              >
+                Open the interactive demo <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="lg:col-span-3">
+              <div className="card overflow-hidden p-1.5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/shots/live-map.png"
+                  alt="Meridian live map — vessels carrying your containers, colour-coded by risk"
+                  className="w-full rounded-xl"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ---------- HOW IT WORKS ---------- */}
-      <section id="how" className="border-y border-border bg-surface">
+      <section id="how">
         <div className="mx-auto max-w-6xl px-5 py-24">
           <div className="max-w-2xl">
             <div className="text-sm font-semibold text-accent">What you actually do</div>
@@ -281,6 +320,17 @@ function TimelineMini() {
         </div>
       ))}
     </div>
+  );
+}
+
+function MapPoint({ title, body }: { title: string; body: string }) {
+  return (
+    <li className="flex gap-3">
+      <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-accent" />
+      <span className="text-sm leading-relaxed text-muted">
+        <strong className="text-fg">{title}.</strong> {body}
+      </span>
+    </li>
   );
 }
 
