@@ -5,13 +5,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { TopNav } from "@/components/TopNav";
 import { ShipGlyph } from "@/components/ShipGlyph";
+import { WORLD_PATH, MAP_W, MAP_H } from "@/lib/world-path";
+import { LANES, makeLane, pointAlong, lanePolylines, type Lane } from "@/lib/sea-lanes";
 
 type Vessel = {
   id: string;
   name: string;
   carrier: string;
   status: "on" | "risk" | "demurrage" | "dim";
-  path: [number, number][];
+  path: Lane;
   progress: number;
   speed: number;
   nextPort: string;
@@ -28,30 +30,8 @@ type Vessel = {
   }>;
 };
 
-function lonLat([lon, lat]: [number, number]): [number, number] {
-  const x = ((lon + 180) / 360) * 1000;
-  const y = ((85 - lat) / 170) * 500;
-  return [x, y];
-}
-
-const CONTINENTS = [
-  "M 130 130 L 230 100 L 300 130 L 320 200 L 280 260 L 220 290 L 170 240 L 140 180 Z",
-  "M 260 300 L 310 290 L 340 360 L 320 430 L 290 460 L 270 420 L 260 360 Z",
-  "M 460 130 L 540 120 L 570 160 L 550 200 L 500 210 L 470 180 Z",
-  "M 490 220 L 570 210 L 590 290 L 570 380 L 540 410 L 510 380 L 480 300 Z",
-  "M 570 100 L 780 110 L 830 200 L 800 260 L 720 290 L 640 260 L 590 200 Z",
-  "M 660 260 L 700 260 L 705 320 L 680 340 L 660 310 Z",
-  "M 800 300 L 870 310 L 900 380 L 850 420 L 800 400 L 790 350 Z",
-  "M 830 380 L 900 380 L 920 430 L 870 450 L 830 430 Z",
-];
-
-const SHIPPING_LANES: [number, number][][] = [
-  [[-122, 37], [-160, 40], [170, 38], [140, 35], [121, 31]],
-  [[121, 31], [103, 1], [80, 8], [43, 12], [32, 30], [14, 36], [-5, 36], [4, 51]],
-  [[-74, 40], [-40, 43], [-10, 48], [4, 51]],
-  [[-43, -22], [-15, 0], [-9, 38], [4, 51]],
-  [[151, -33], [130, -10], [121, 15], [121, 31]],
-];
+const LANE_KEYS = ["transpacific", "asiaEurope", "transatlantic", "brazilEurope", "australiaAsia"] as const;
+const SHIPPING_LANES: Lane[] = LANE_KEYS.map((k) => makeLane(LANES[k]));
 
 function generateVessels(): Vessel[] {
   const NAMES = [
@@ -113,19 +93,6 @@ const STATUS_COLORS: Record<Vessel["status"], string> = {
   dim: "#3d5478",
 };
 
-function pointOnPath(path: [number, number][], t: number) {
-  const segCount = path.length - 1;
-  const scaled = t * segCount;
-  const i = Math.min(segCount - 1, Math.floor(scaled));
-  const local = scaled - i;
-  const [x1, y1] = lonLat(path[i]);
-  const [x2, y2] = lonLat(path[i + 1]);
-  return {
-    x: x1 + (x2 - x1) * local,
-    y: y1 + (y2 - y1) * local,
-    angle: (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI,
-  };
-}
 
 export default function MapPage() {
   const [vessels, setVessels] = useState<Vessel[]>(() => generateVessels());
@@ -166,7 +133,7 @@ export default function MapPage() {
   const cargoCount = filteredVessels.reduce((a, v) => a + (v.containers?.length ?? 0), 0);
 
   return (
-    <div className="relative min-h-screen bg-abyss text-paper">
+    <div className="dark relative min-h-screen text-paper" style={{ background: "#0b1220" }}>
       <TopNav />
 
       <div className="fixed left-0 right-0 top-16 z-30 flex flex-wrap items-center gap-3 px-6 py-3">
@@ -199,29 +166,23 @@ export default function MapPage() {
         </div>
       </div>
 
-      <div className="relative h-screen w-full pt-28">
-        <svg viewBox="0 0 1000 500" className="h-full w-full" preserveAspectRatio="xMidYMid slice">
+      <div className="relative h-screen w-full pt-28" style={{ background: "#0b1220" }}>
+        <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} className="h-full w-full" preserveAspectRatio="xMidYMid meet">
           <defs>
             <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
               <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a2540" strokeWidth="0.5" />
             </pattern>
           </defs>
-          <rect width="1000" height="500" fill="#0b1220" />
-          <rect width="1000" height="500" fill="url(#grid)" />
-          {[125, 250, 375].map((y) => (
-            <line key={y} x1="0" y1={y} x2="1000" y2={y} stroke="#1a2540" strokeWidth="0.5" strokeDasharray="2 6" />
-          ))}
-          {CONTINENTS.map((d, i) => (
-            <path key={i} d={d} fill="#132038" stroke="#1e2f4f" strokeWidth="1" />
-          ))}
-          {SHIPPING_LANES.map((lane, i) => {
-            const points = lane.map((p) => lonLat(p).join(",")).join(" ");
-            return (
-              <polyline key={i} points={points} fill="none" stroke="#1e3350" strokeWidth="1" strokeDasharray="3 5" />
-            );
-          })}
+          <rect width={MAP_W} height={MAP_H} fill="#0b1220" />
+          <rect width={MAP_W} height={MAP_H} fill="url(#grid)" />
+          <path d={WORLD_PATH} fill="#132038" stroke="#22354f" strokeWidth="0.7" strokeLinejoin="round" />
+          {SHIPPING_LANES.map((lane, i) =>
+            lanePolylines(lane).map((points, j) => (
+              <polyline key={`${i}-${j}`} points={points} fill="none" stroke="#2a4266" strokeWidth="0.9" strokeDasharray="3 5" />
+            ))
+          )}
           {filteredVessels.map((v) => {
-            const p = pointOnPath(v.path, v.progress);
+            const p = pointAlong(v.path, v.progress);
             const c = STATUS_COLORS[v.status];
             const isHighlight = v.status !== "dim";
             return (

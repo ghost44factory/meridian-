@@ -6,6 +6,8 @@ import { AppShell } from "@/components/AppShell";
 import { supabase } from "@/lib/supabase";
 import { daysLeft } from "@/lib/format";
 import { ShipGlyph } from "@/components/ShipGlyph";
+import { WORLD_PATH, MAP_W, MAP_H } from "@/lib/world-path";
+import { LANES, makeLane, pointAlong, lanePolylines, type Lane } from "@/lib/sea-lanes";
 
 type Shipment = {
   id: string; container_no: string; carrier: string; vessel_name: string | null;
@@ -13,28 +15,13 @@ type Shipment = {
   free_time_days: number; clock_start_at: string | null;
 };
 
-function lonLat([lon, lat]: [number, number]): [number, number] {
-  return [((lon + 180) / 360) * 1000, ((85 - lat) / 170) * 500];
-}
-
-const CONTINENTS = [
-  "M 130 130 L 230 100 L 300 130 L 320 200 L 280 260 L 220 290 L 170 240 L 140 180 Z",
-  "M 260 300 L 310 290 L 340 360 L 320 430 L 290 460 L 270 420 L 260 360 Z",
-  "M 460 130 L 540 120 L 570 160 L 550 200 L 500 210 L 470 180 Z",
-  "M 490 220 L 570 210 L 590 290 L 570 380 L 540 410 L 510 380 L 480 300 Z",
-  "M 570 100 L 780 110 L 830 200 L 800 260 L 720 290 L 640 260 L 590 200 Z",
-  "M 660 260 L 700 260 L 705 320 L 680 340 L 660 310 Z",
-  "M 800 300 L 870 310 L 900 380 L 850 420 L 800 400 L 790 350 Z",
-  "M 830 380 L 900 380 L 920 430 L 870 450 L 830 430 Z",
-];
-
-const LANES: Record<string, [number, number][]> = {
-  Shanghai: [[121, 31], [103, 1], [80, 8], [43, 12], [32, 30], [14, 36], [-5, 36], [4, 51]],
-  Ningbo: [[121, 29], [103, 1], [80, 8], [43, 12], [32, 30], [14, 36], [-5, 36], [4, 51]],
-  Shenzhen: [[114, 22], [103, 1], [80, 8], [43, 12], [32, 30], [14, 36], [-5, 36], [4, 51]],
-  "Jebel Ali": [[55, 25], [43, 12], [32, 30], [14, 36], [-5, 36], [4, 51]],
-  Karachi: [[67, 24], [43, 12], [32, 30], [14, 36], [-5, 36], [-1, 51]],
-  "Los Angeles": [[-118, 33], [-160, 40], [170, 38], [121, 31], [103, 1]],
+const PORT_LANES: Record<string, Lane> = {
+  Shanghai: makeLane(LANES.asiaEurope),
+  Ningbo: makeLane(LANES.asiaEurope),
+  Shenzhen: makeLane(LANES.asiaEurope),
+  "Jebel Ali": makeLane(LANES.jebelAliEurope),
+  Karachi: makeLane(LANES.karachiEurope),
+  "Los Angeles": makeLane(LANES.pacificWestbound),
 };
 
 function hash(s: string) {
@@ -43,19 +30,6 @@ function hash(s: string) {
   return h;
 }
 
-function pointOnPath(path: [number, number][], t: number) {
-  const segCount = path.length - 1;
-  const scaled = Math.min(0.999, Math.max(0, t)) * segCount;
-  const i = Math.floor(scaled);
-  const local = scaled - i;
-  const [x1, y1] = lonLat(path[i]);
-  const [x2, y2] = lonLat(path[i + 1]);
-  return {
-    x: x1 + (x2 - x1) * local,
-    y: y1 + (y2 - y1) * local,
-    angle: (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI,
-  };
-}
 
 export default function AppLiveMap() {
   const [rows, setRows] = useState<Shipment[]>([]);
@@ -72,13 +46,14 @@ export default function AppLiveMap() {
   const vessels = useMemo(
     () =>
       rows.map((s) => {
-        const lane = LANES[s.origin_port] ?? LANES["Shanghai"];
-        const t = s.status === "in_transit" ? 0.2 + (hash(s.id) % 60) / 100 : 0.97;
-        const p = pointOnPath(lane, t);
-        const jitter = ((hash(s.container_no) % 100) - 50) / 12;
+        const lane = PORT_LANES[s.origin_port] ?? PORT_LANES["Shanghai"];
+        // jitter along the lane (not off it) so vessels spread out but stay at sea
+        const tj = ((hash(s.container_no) % 100) - 50) / 2500;
+        const t = s.status === "in_transit" ? Math.min(0.96, Math.max(0.02, 0.2 + (hash(s.id) % 60) / 100 + tj)) : 0.985;
+        const p = pointAlong(lane, t);
         const color =
           s.status === "in_demurrage" ? "var(--danger)" : s.status === "at_risk" ? "var(--warn)" : "var(--accent)";
-        return { ...s, x: p.x + jitter, y: p.y + jitter / 2, angle: p.angle, color };
+        return { ...s, x: p.x, y: p.y, angle: p.angle, color };
       }),
     [rows]
   );
@@ -95,27 +70,20 @@ export default function AppLiveMap() {
       </div>
 
       <div className="relative mt-5 overflow-hidden rounded-xl border border-panel-border" style={{ background: "#0b0d12" }}>
-        <svg viewBox="0 0 1000 500" className="w-full">
+        <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} className="w-full">
           <defs>
             <pattern id="agrid" width="40" height="40" patternUnits="userSpaceOnUse">
               <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a2540" strokeWidth="0.5" />
             </pattern>
           </defs>
-          <rect width="1000" height="500" fill="#0b1220" />
-          <rect width="1000" height="500" fill="url(#agrid)" />
-          {CONTINENTS.map((d, i) => (
-            <path key={i} d={d} fill="#132038" stroke="#1e2f4f" strokeWidth="1" />
-          ))}
-          {Object.values(LANES).map((lane, i) => (
-            <polyline
-              key={i}
-              points={lane.map((p) => lonLat(p).join(",")).join(" ")}
-              fill="none"
-              stroke="#1e3350"
-              strokeWidth="1"
-              strokeDasharray="3 5"
-            />
-          ))}
+          <rect width={MAP_W} height={MAP_H} fill="#0b1220" />
+          <rect width={MAP_W} height={MAP_H} fill="url(#agrid)" />
+          <path d={WORLD_PATH} fill="#132038" stroke="#22354f" strokeWidth="0.7" strokeLinejoin="round" />
+          {Object.values(PORT_LANES).map((lane, i) =>
+            lanePolylines(lane).map((points, j) => (
+              <polyline key={`${i}-${j}`} points={points} fill="none" stroke="#2a4266" strokeWidth="0.9" strokeDasharray="3 5" />
+            ))
+          )}
           {vessels.map((v) => (
             <g key={v.id} transform={`translate(${v.x} ${v.y})`} onClick={() => setSelected(v)} style={{ cursor: "pointer" }}>
               <circle r="9" fill={v.color} opacity="0.15">
