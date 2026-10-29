@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { TopNav } from "@/components/TopNav";
+import { ShipGlyph } from "@/components/ShipGlyph";
 
 type Vessel = {
   id: string;
@@ -119,7 +120,11 @@ function pointOnPath(path: [number, number][], t: number) {
   const local = scaled - i;
   const [x1, y1] = lonLat(path[i]);
   const [x2, y2] = lonLat(path[i + 1]);
-  return { x: x1 + (x2 - x1) * local, y: y1 + (y2 - y1) * local };
+  return {
+    x: x1 + (x2 - x1) * local,
+    y: y1 + (y2 - y1) * local,
+    angle: (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI,
+  };
 }
 
 export default function MapPage() {
@@ -229,11 +234,10 @@ export default function MapPage() {
                 {isHighlight && (
                   <>
                     <circle r="10" fill={c} opacity="0.15">
-                      <animate attributeName="r" values="6;16;6" dur="2.4s" repeatCount="indefinite" />
+                      <animate attributeName="r" values="7;17;7" dur="2.4s" repeatCount="indefinite" />
                       <animate attributeName="opacity" values="0.4;0;0.4" dur="2.4s" repeatCount="indefinite" />
                     </circle>
-                    <circle r="4" fill={c} opacity="0.9" />
-                    <circle r="2" fill="#ffffff" />
+                    <ShipGlyph color={c} travelAngle={p.angle} scale={1.35} />
                   </>
                 )}
                 {!isHighlight && <circle r="1.6" fill={c} opacity="0.6" />}

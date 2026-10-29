@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AppShell } from "@/components/AppShell";
 import { supabase } from "@/lib/supabase";
 import { daysLeft } from "@/lib/format";
+import { ShipGlyph } from "@/components/ShipGlyph";
 
 type Shipment = {
   id: string; container_no: string; carrier: string; vessel_name: string | null;
@@ -49,7 +50,11 @@ function pointOnPath(path: [number, number][], t: number) {
   const local = scaled - i;
   const [x1, y1] = lonLat(path[i]);
   const [x2, y2] = lonLat(path[i + 1]);
-  return { x: x1 + (x2 - x1) * local, y: y1 + (y2 - y1) * local };
+  return {
+    x: x1 + (x2 - x1) * local,
+    y: y1 + (y2 - y1) * local,
+    angle: (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI,
+  };
 }
 
 export default function AppLiveMap() {
@@ -73,7 +78,7 @@ export default function AppLiveMap() {
         const jitter = ((hash(s.container_no) % 100) - 50) / 12;
         const color =
           s.status === "in_demurrage" ? "#ff5a5f" : s.status === "at_risk" ? "#f2a93c" : "#4cd9e0";
-        return { ...s, x: p.x + jitter, y: p.y + jitter / 2, color };
+        return { ...s, x: p.x + jitter, y: p.y + jitter / 2, angle: p.angle, color };
       }),
     [rows]
   );
@@ -114,11 +119,10 @@ export default function AppLiveMap() {
           {vessels.map((v) => (
             <g key={v.id} transform={`translate(${v.x} ${v.y})`} onClick={() => setSelected(v)} style={{ cursor: "pointer" }}>
               <circle r="9" fill={v.color} opacity="0.15">
-                <animate attributeName="r" values="5;14;5" dur="2.4s" repeatCount="indefinite" />
+                <animate attributeName="r" values="6;15;6" dur="2.4s" repeatCount="indefinite" />
                 <animate attributeName="opacity" values="0.4;0;0.4" dur="2.4s" repeatCount="indefinite" />
               </circle>
-              <circle r="3.5" fill={v.color} opacity="0.9" />
-              <circle r="1.6" fill="#ffffff" />
+              <ShipGlyph color={v.color} travelAngle={v.angle} scale={1.1} />
             </g>
           ))}
         </svg>
