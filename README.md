@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Meridian
 
-## Getting Started
+AI-native freight intelligence — demurrage & detention recovery for freight forwarders,
+NVOCCs and importers. Every container tracked. Every overcharge contested.
 
-First, run the development server:
+## Stack
+
+- **Next.js 15** (App Router, TypeScript, Tailwind v4) — deployed on Vercel
+- **Supabase** (Postgres + RLS, Auth, Storage) — project `guuoggtdzshtqpdcnsad`, eu-west-2 (London)
+- **Claude API** — document extraction + dispute drafting (`src/app/api/extract`)
+- **Deterministic audit rules engine** — `src/lib/audit-engine.ts` (all date/rate arithmetic in code, never LLM)
+- Three.js / react-three-fiber — animated 3D port homepage
+
+## Apps
+
+- `/` — marketing site (3D scroll journey, ROI calculator, free-audit CTA)
+- `/map` — public live-tracking demo (sample data)
+- `/app/*` — customer dashboard (auth required): overview, shipments, invoices + audit,
+  dispute pipeline, document vault + upload, review queue, live map, settings
+- `/admin` — staff-only cross-customer ops console (managed-tier workbench)
+
+## Local dev
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Env vars in `.env.local` (Supabase URL + publishable key are safe for the client;
+`ANTHROPIC_API_KEY` is server-side only).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Demo login: `demo@meridian.app` / `MeridianDemo2026!`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Database
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Schema is managed via Supabase migrations (`meridian_core_schema`, `staff_admin_access`).
+Tables: orgs, profiles, shipments, contracts, documents, invoices, disputes, alerts —
+all with org-scoped RLS; staff flag grants cross-org read for the admin console.
