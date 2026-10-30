@@ -227,7 +227,7 @@ export default function Home() {
       </section>
 
       {/* ---------- OWNERS & CHARTERERS ---------- */}
-      <section className="dark" style={{ background: "#0b0c0e" }}>
+      <section id="owners" className="dark" style={{ background: "#0b0c0e" }}>
         <div className="mx-auto max-w-6xl px-5 py-24 text-fg">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-2xl">
@@ -248,7 +248,13 @@ export default function Home() {
               Owner portal live in demo · full pilot Apr 2027
             </div>
           </div>
-          <div className="mt-10 overflow-hidden rounded-2xl border border-border">
+          <div className="mt-10 grid grid-cols-2 gap-5 md:grid-cols-4">
+            <OwnerStat big="$45–52k" label="demurrage per day on a VLCC crude tanker in a normal market (Argus)" />
+            <OwnerStat big="~10×" label="that during the 2026 Gulf disruption — delay became a board-level cost" />
+            <OwnerStat big="$500k+" label="single voyage claims are routine; one missed 90-day time bar voids them" />
+            <OwnerStat big="~99%" label="of Statements of Facts are still processed by hand today" />
+          </div>
+          <div className="mt-6 overflow-hidden rounded-2xl border border-border">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/brand/ship.png"
@@ -296,6 +302,9 @@ export default function Home() {
             >
               Open the owner demo <ArrowRight className="h-4 w-4" />
             </Link>
+            <code className="rounded-lg border border-border bg-surface px-3 py-2 font-mono text-[11px] text-muted">
+              owner@marevo.app · MarevoOwner2026
+            </code>
             <p className="text-sm text-muted">
               <strong className="text-fg">Pilot pricing:</strong> no subscription — 10% of recovered
               demurrage or despatch. Founding design partners pay 5%, locked for two years.
@@ -423,6 +432,15 @@ function MapPoint({ title, body }: { title: string; body: string }) {
         <strong className="text-fg">{title}.</strong> {body}
       </span>
     </li>
+  );
+}
+
+function OwnerStat({ big, label }: { big: string; label: string }) {
+  return (
+    <div className="card p-5">
+      <div className="font-mono text-xl font-semibold text-accent md:text-2xl">{big}</div>
+      <div className="mt-1.5 text-xs leading-snug text-muted">{label}</div>
+    </div>
   );
 }
 
