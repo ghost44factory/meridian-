@@ -80,7 +80,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen bg-bg text-fg">
-      <aside className="fixed inset-y-0 left-0 z-40 flex w-56 flex-col border-r border-border bg-surface">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-56 flex-col border-r border-border bg-surface lg:flex">
         <Link href="/" className="px-5 py-5">
           <Logo />
         </Link>
@@ -121,7 +121,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
 
-      <div className="ml-56 flex-1">
+      <div className="flex-1 lg:ml-56">
         <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-bg/85 px-6 py-3 backdrop-blur-xl">
           <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
             Northwind Logistics
@@ -170,7 +170,24 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </button>
           </div>
         </header>
-        <main className="p-6">{children}</main>
+        {/* Mobile nav — the sidebar is hidden below lg */}
+        <nav className="sticky top-[57px] z-20 flex gap-1 overflow-x-auto border-b border-border bg-bg/95 px-3 py-2 backdrop-blur-xl lg:hidden">
+          {NAV.flatMap((s) => s.items).map((item) => {
+            const active = item.href === "/app" ? pathname === "/app" : pathname.startsWith(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium ${
+                  active ? "bg-accent-soft text-accent" : "text-muted"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
+        <main className="p-4 md:p-6">{children}</main>
       </div>
     </div>
   );

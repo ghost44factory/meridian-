@@ -90,7 +90,7 @@ export default function OwnerOverview() {
       </div>
 
       <h2 className="mt-8 font-display text-sm font-semibold uppercase tracking-[0.14em] text-muted">Recent claims</h2>
-      <div className="card mt-3 overflow-hidden">
+      <div className="card mt-3 overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border text-left font-display text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">

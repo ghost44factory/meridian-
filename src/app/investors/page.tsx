@@ -2,7 +2,10 @@ import Link from "next/link";
 import { TopNav, Logo } from "@/components/TopNav";
 import { ArrowRight } from "lucide-react";
 
-export const metadata = { title: "Investors — Marevo" };
+export const metadata = {
+  title: "Investors",
+  description: "Shipping leaks $22B a year to demurrage & detention. Marevo is the AI that gets it back — live product, two portals, outcome-based pricing.",
+};
 
 const PROJECTIONS = [
   { year: "Year 1", customers: "12", arr: "£290k" },
@@ -89,7 +92,7 @@ export default function Investors() {
 
       <section className="mx-auto max-w-4xl px-5 py-10">
         <h2 className="text-2xl font-semibold">Base-case trajectory</h2>
-        <div className="card mt-6 overflow-hidden">
+        <div className="card mt-6 overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-border text-left font-display font-semibold text-[11px] uppercase tracking-[0.14em] text-muted">

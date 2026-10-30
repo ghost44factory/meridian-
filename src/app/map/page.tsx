@@ -241,7 +241,7 @@ export default function MapPage() {
           </div>
         </div>
 
-        <div className="glass-panel absolute right-6 top-32 rounded-xl p-4 font-mono text-xs">
+        <div className="glass-panel absolute right-6 top-32 hidden rounded-xl p-4 font-mono text-xs md:block">
           <div className="mb-2 text-[10px] uppercase tracking-[0.25em] text-mist">Live readout</div>
           <div className="flex justify-between gap-6">
             <span className="text-mist">Vessels in view</span>

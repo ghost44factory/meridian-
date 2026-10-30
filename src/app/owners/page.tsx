@@ -2,7 +2,10 @@ import Link from "next/link";
 import { TopNav, Logo } from "@/components/TopNav";
 import { ArrowRight } from "lucide-react";
 
-export const metadata = { title: "For vessel owners — Marevo" };
+export const metadata = {
+  title: "For vessel owners",
+  description: "Voyage demurrage claims built and chased for you — AI reads the charter party and SOF, computes laytime, drafts the claim pack and tracks it to settlement.",
+};
 
 export default function OwnersPage() {
   return (

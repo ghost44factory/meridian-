@@ -153,7 +153,7 @@ export default function DocumentsPage() {
           </div>
           {notice && <div className="mt-3 text-xs text-amber">{notice}</div>}
 
-          <div className="mt-5 overflow-hidden rounded-xl border border-panel-border" style={{ background: "var(--surface)" }}>
+          <div className="mt-5 overflow-x-auto rounded-xl border border-panel-border" style={{ background: "var(--surface)" }}>
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border text-left font-display font-semibold text-[10px] uppercase tracking-[0.14em] text-mist">

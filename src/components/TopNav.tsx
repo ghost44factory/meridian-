@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Menu, X } from "lucide-react";
 
 export function MarevoMark({ className = "h-5 w-auto" }: { className?: string }) {
   // Licensed M-arrow mark: dark version on light theme, mint on dark.
@@ -31,6 +32,7 @@ export function Logo({ size = "base" }: { size?: "base" | "lg" }) {
 export function TopNav() {
   const [scrolled, setScrolled] = useState(false);
   const [authed, setAuthed] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -72,12 +74,46 @@ export function TopNav() {
           </Link>
           <a
             href="/#audit"
-            className="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-fg transition hover:brightness-105"
+            className="hidden rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-fg transition hover:brightness-105 sm:inline-flex"
           >
             Get a free audit
           </a>
+          <button
+            onClick={() => setOpen((o) => !o)}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface text-muted md:hidden"
+            aria-label="Menu"
+          >
+            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
         </div>
       </div>
+
+      {open && (
+        <div className="border-t border-border bg-surface/95 px-5 py-4 backdrop-blur-xl md:hidden">
+          <div className="flex flex-col gap-1">
+            {[
+              ["/#product", "Product"],
+              ["/#how", "How it works"],
+              ["/#pricing", "Pricing"],
+              ["/owners", "Vessel owners"],
+              ["/map", "Live demo"],
+              ["/investors", "Investors"],
+              ["/careers", "Careers"],
+            ].map(([href, label]) => (
+              <a key={href} href={href} onClick={() => setOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium text-muted hover:bg-surface-2 hover:text-fg">
+                {label}
+              </a>
+            ))}
+            <Link
+              href={authed ? "/app" : "/app/login"}
+              onClick={() => setOpen(false)}
+              className="mt-2 rounded-full bg-accent px-4 py-2.5 text-center text-sm font-semibold text-accent-fg"
+            >
+              {authed ? "Open dashboard" : "Sign in"}
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

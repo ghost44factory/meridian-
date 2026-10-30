@@ -2,7 +2,10 @@ import Link from "next/link";
 import { TopNav, Logo } from "@/components/TopNav";
 import { ArrowRight } from "lucide-react";
 
-export const metadata = { title: "Careers — Marevo" };
+export const metadata = {
+  title: "Careers",
+  description: "Join Marevo — tiny team, AI-native from day one, recovering the billions shipping overpays in demurrage & detention.",
+};
 
 const ROLES = [
   {
