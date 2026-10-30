@@ -14,7 +14,10 @@ export default function SettingsPage() {
   useEffect(() => {
     const sb = supabase();
     sb.auth.getUser().then(({ data }) => setEmail(data.user?.email ?? "—"));
-    sb.from("orgs").select("name,inbound_token").maybeSingle().then(({ data }) => {
+    sb.from("profiles").select("org_id").maybeSingle().then(async ({ data: profile }) => {
+      const orgId = (profile as { org_id: string } | null)?.org_id;
+      if (!orgId) return;
+      const { data } = await sb.from("orgs").select("name,inbound_token").eq("id", orgId).maybeSingle();
       if (data) {
         setOrgName((data as { name: string }).name);
         setInboundToken((data as { inbound_token?: string }).inbound_token ?? null);

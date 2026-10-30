@@ -274,8 +274,8 @@ export default function Home() {
           <div className="mt-6 overflow-hidden rounded-2xl border border-border">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/brand/container-34-black.png"
-              alt="Marevo-branded shipping container"
+              src="/brand/ship.png"
+              alt="Marevo container vessel at sea"
               className="max-h-[380px] w-full object-cover"
             />
           </div>
@@ -406,6 +406,8 @@ export default function Home() {
           <div className="flex gap-6 text-xs text-muted">
             <Link href="/app/login" className="hover:text-fg">Sign in</Link>
             <Link href="/map" className="hover:text-fg">Live demo</Link>
+            <Link href="/guides" className="hover:text-fg">Guides</Link>
+            <Link href="/tools/demurrage-calculator" className="hover:text-fg">Calculator</Link>
             <Link href="/careers" className="hover:text-fg">Careers</Link>
             <Link href="/investors" className="hover:text-fg">Investors</Link>
             <a href="#" className="hover:text-fg">Privacy</a>

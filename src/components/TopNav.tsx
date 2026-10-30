@@ -62,6 +62,7 @@ export function TopNav() {
           <a href="/#how" className="text-sm text-muted transition hover:text-fg">How it works</a>
           <a href="/#pricing" className="text-sm text-muted transition hover:text-fg">Pricing</a>
           <Link href="/owners" className="text-sm text-muted transition hover:text-fg">Vessel owners</Link>
+          <Link href="/guides" className="text-sm text-muted transition hover:text-fg">Guides</Link>
           <Link href="/map" className="text-sm text-muted transition hover:text-fg">Live demo</Link>
         </div>
         <div className="flex items-center gap-2.5">
@@ -97,6 +98,8 @@ export function TopNav() {
               ["/#pricing", "Pricing"],
               ["/owners", "Vessel owners"],
               ["/map", "Live demo"],
+              ["/guides", "Guides"],
+              ["/tools/demurrage-calculator", "Demurrage calculator"],
               ["/investors", "Investors"],
               ["/careers", "Careers"],
             ].map(([href, label]) => (

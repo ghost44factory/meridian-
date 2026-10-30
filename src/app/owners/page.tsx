@@ -54,7 +54,7 @@ export default function OwnersPage() {
       <section className="mx-auto max-w-6xl px-5 py-14">
         <div className="overflow-hidden rounded-2xl border border-border">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/container-34-green.png" alt="Marevo-branded container at the terminal" className="max-h-[380px] w-full object-cover" />
+          <img src="/brand/ship.png" alt="Marevo container vessel at sea" className="max-h-[380px] w-full object-cover" />
         </div>
       </section>
 

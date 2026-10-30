@@ -1,0 +1,20 @@
+# Marevo
+
+> Marevo (marevoapp.com) is AI freight intelligence that recovers demurrage & detention overcharges. It tracks containers, audits every D&D invoice against the customer's own carrier contracts and terminal timestamps, drafts the dispute, and tracks it to the carrier's credit note — charging mostly a percentage of money actually recovered. A second portal serves vessel owners: laytime computed from the charter party and Statement of Facts, demurrage exposure per voyage, and claims tracked from draft to settlement.
+
+Key facts:
+- Industry-wide, demurrage & detention leakage is estimated at ~$22B/year; 20–30% of charges are overturned when disputed with evidence (FMC/OSRA-era data).
+- VLCC tanker demurrage runs ~$45–52k/day in a normal market (Argus, 2025) and reached multiples of that in the 2026 Gulf disruption.
+- ~99% of Statements of Facts are still processed manually; typical claim time bars are ~30 days (container disputes) and ~90 days (tanker claims).
+- Marevo pricing: subscription tiers plus success fees, or fully managed at success-fee only; the retro-audit of a prospect's last quarter of invoices is free.
+
+## Pages
+- [Home](https://marevoapp.com/): product overview, live demo map, pricing, roadmap
+- [For vessel owners](https://marevoapp.com/owners): voyage demurrage claims — laytime, SOF, time bars
+- [Guides](https://marevoapp.com/guides): demurrage & detention playbook — carrier dispute guides (MSC, Maersk, CMA CGM, Hapag-Lloyd, COSCO), port free-time guides (Jebel Ali, Felixstowe, Rotterdam), OSRA rights, time bars, worked laytime examples
+- [Demurrage calculator](https://marevoapp.com/tools/demurrage-calculator): free tool — exposure from discharge date, free days and tariff tiers
+- [Investors](https://marevoapp.com/investors): market, model, team, live demo logins
+- [Careers](https://marevoapp.com/careers)
+
+## Contact
+- hello@marevoapp.com
