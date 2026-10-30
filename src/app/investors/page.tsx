@@ -179,7 +179,7 @@ export default function Investors() {
             </p>
           </div>
           <a
-            href="mailto:hello@marevohq.com?subject=Investor%20pack%20request"
+            href="mailto:hello@marevoapp.com?subject=Investor%20pack%20request"
             className="inline-flex shrink-0 items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-fg transition hover:brightness-105"
           >
             Request the pack <ArrowRight className="h-4 w-4" />

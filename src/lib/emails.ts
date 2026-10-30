@@ -34,7 +34,7 @@ export function freeTimeAlert(p: {
       <p style="font-size:14px;color:#6a7280;line-height:1.6;">
         Book your haulier or arrange pickup now to keep this charge at zero.
       </p>
-      <a href="https://marevohq.com/app/shipments"
+      <a href="https://marevoapp.com/app/shipments"
          style="display:inline-block;background:#12b76a;color:#ffffff;font-size:14px;font-weight:600;padding:11px 22px;border-radius:999px;text-decoration:none;">
         View the countdown
       </a>`),
@@ -63,7 +63,7 @@ export function disputableInvoice(p: {
       <p style="font-size:14px;color:#6a7280;line-height:1.6;">
         The dispute letter is drafted with the evidence attached — review and send with one click.
       </p>
-      <a href="https://marevohq.com/app/invoices"
+      <a href="https://marevoapp.com/app/invoices"
          style="display:inline-block;background:#12b76a;color:#ffffff;font-size:14px;font-weight:600;padding:11px 22px;border-radius:999px;text-decoration:none;">
         Review &amp; send the dispute
       </a>`),

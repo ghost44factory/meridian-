@@ -48,7 +48,7 @@ export default function Careers() {
               Roles open as pilot customers land — early applications get first calls.
             </p>
             <a
-              href="mailto:hello@marevohq.com?subject=Joining%20Marevo"
+              href="mailto:hello@marevoapp.com?subject=Joining%20Marevo"
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-fg transition hover:brightness-105"
             >
               Introduce yourself <ArrowRight className="h-4 w-4" />
@@ -76,7 +76,7 @@ export default function Careers() {
               <div className="mt-1 font-display font-semibold text-[11px] uppercase tracking-[0.14em] text-muted">{r.type}</div>
               <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{r.body}</p>
               <a
-                href={`mailto:hello@marevohq.com?subject=${encodeURIComponent("Application: " + r.title)}`}
+                href={`mailto:hello@marevoapp.com?subject=${encodeURIComponent("Application: " + r.title)}`}
                 className="mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-border bg-surface px-5 py-2 text-sm font-medium transition hover:bg-surface-2"
               >
                 Apply <ArrowRight className="h-3.5 w-3.5" />
@@ -86,7 +86,7 @@ export default function Careers() {
         </div>
         <p className="mt-10 text-sm text-muted">
           No role that fits? If you know freight, carriers, or how to make software feel
-          inevitable — <a className="text-accent underline-offset-2 hover:underline" href="mailto:hello@marevohq.com?subject=Speculative%20application">write anyway</a>.
+          inevitable — <a className="text-accent underline-offset-2 hover:underline" href="mailto:hello@marevoapp.com?subject=Speculative%20application">write anyway</a>.
         </p>
       </section>
 

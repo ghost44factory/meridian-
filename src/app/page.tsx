@@ -291,7 +291,7 @@ export default function Home() {
           </div>
           <div className="mt-8 flex flex-wrap items-center gap-5">
             <a
-              href="mailto:hello@marevohq.com?subject=Voyage%20demurrage%20pilot"
+              href="mailto:hello@marevoapp.com?subject=Voyage%20demurrage%20pilot"
               className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-fg transition hover:brightness-105"
             >
               Become a design partner <ArrowRight className="h-4 w-4" />
@@ -375,7 +375,7 @@ export default function Home() {
             The audit is free whether or not you ever become a customer.
           </p>
           <a
-            href="mailto:hello@marevohq.com?subject=Free%20retro-audit"
+            href="mailto:hello@marevoapp.com?subject=Free%20retro-audit"
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-accent-fg transition hover:brightness-105"
           >
             Claim your free audit <ArrowRight className="h-4 w-4" />
