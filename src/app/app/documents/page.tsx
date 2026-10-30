@@ -14,6 +14,7 @@ export default function DocumentsPage() {
   const [contracts, setContracts] = useState<Contract[]>([]);
   const [tab, setTab] = useState<"documents" | "contracts">("documents");
   const [uploading, setUploading] = useState(false);
+  const [extracting, setExtracting] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -46,16 +47,75 @@ export default function DocumentsPage() {
         setNotice(`Upload failed: ${upErr.message}`);
         continue;
       }
+      const lower = file.name.toLowerCase();
+      const type = lower.includes("invoice") ? "invoice"
+        : lower.includes("lading") || /(^|[^a-z])bl([^a-z]|$)/.test(lower) ? "bl"
+        : lower.includes("contract") ? "contract"
+        : lower.includes("booking") ? "booking"
+        : lower.includes("arrival") ? "arrival_notice"
+        : "invoice";
       await sb.from("documents").insert({
         org_id: orgId,
-        type: file.name.toLowerCase().includes("invoice") ? "invoice" : "other",
+        type,
         file_path: path,
         extraction_status: "pending",
       });
     }
     setUploading(false);
-    setNotice("Uploaded. AI extraction runs in the next build — status set to pending.");
+    setNotice("Uploaded — hit Extract to run the AI over it.");
     load();
+  }
+
+  function toBase64(buf: ArrayBuffer) {
+    const bytes = new Uint8Array(buf);
+    let bin = "";
+    const CHUNK = 0x8000;
+    for (let i = 0; i < bytes.length; i += CHUNK) {
+      bin += String.fromCharCode(...bytes.subarray(i, i + CHUNK));
+    }
+    return btoa(bin);
+  }
+
+  const DOC_TYPE_MAP: Record<string, string> = {
+    bl: "bill_of_lading", bill_of_lading: "bill_of_lading", contract: "contract",
+    booking: "booking", arrival_notice: "arrival_notice", invoice: "invoice",
+  };
+
+  async function runExtraction(d: Doc) {
+    if (!d.file_path || extracting) return;
+    setExtracting(d.id);
+    setNotice(null);
+    try {
+      const sb = supabase();
+      const { data: blob, error } = await sb.storage.from("documents").download(d.file_path);
+      if (error || !blob) {
+        setNotice(`Could not read the file: ${error?.message ?? "not found"}`);
+        return;
+      }
+      const mediaType = blob.type || (d.file_path.endsWith(".pdf") ? "application/pdf" : "image/png");
+      const res = await fetch("/api/extract", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          docType: DOC_TYPE_MAP[d.type] ?? "invoice",
+          fileBase64: toBase64(await blob.arrayBuffer()),
+          mediaType,
+        }),
+      });
+      const out = await res.json();
+      if (!res.ok) {
+        setNotice(`Extraction failed: ${out.error ?? res.status}`);
+        return;
+      }
+      await sb
+        .from("documents")
+        .update({ extracted_fields: out.fields, confidence: out.confidence, extraction_status: "needs_review" })
+        .eq("id", d.id);
+      setNotice(`Extracted at ${Math.round(out.confidence * 100)}% confidence — verify it in the Review Queue.`);
+      load();
+    } finally {
+      setExtracting(null);
+    }
   }
 
   return (
@@ -102,6 +162,7 @@ export default function DocumentsPage() {
                   <th className="px-4 py-3 font-normal">Uploaded</th>
                   <th className="px-4 py-3 font-normal">Extraction</th>
                   <th className="px-4 py-3 font-normal">Confidence</th>
+                  <th className="px-4 py-3 font-normal"></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
@@ -115,6 +176,17 @@ export default function DocumentsPage() {
                     </td>
                     <td className="px-4 py-3 font-mono text-xs text-mist">
                       {d.confidence ? `${Math.round(Number(d.confidence) * 100)}%` : "—"}
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      {d.file_path && (d.extraction_status === "pending" || d.extraction_status === "failed") && (
+                        <button
+                          onClick={() => runExtraction(d)}
+                          disabled={!!extracting}
+                          className="rounded-full bg-cyan px-3.5 py-1.5 text-xs font-semibold text-navy transition hover:brightness-110 disabled:opacity-50"
+                        >
+                          {extracting === d.id ? "Extracting…" : "Extract"}
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}

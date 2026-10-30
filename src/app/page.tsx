@@ -237,8 +237,9 @@ export default function Home() {
               </h2>
               <p className="mt-4 text-muted">
                 Containers are where we started. Voyage demurrage — the laytime claims
-                between owners and charterers — is the same dispute with another zero on
-                it. The engine is built for both; the pilot opens next year.
+                between owners and charterers on tankers and bulkers — is the same dispute
+                with two more zeros. Oil is the heartland: demurrage on a crude tanker runs
+                $30k+ a day, and the majors keep entire departments to fight it.
               </p>
             </div>
             <div className="pill border border-accent/40 bg-accent-soft text-accent">
@@ -266,30 +267,37 @@ export default function Home() {
               <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-accent">Claims that matter</div>
               <h3 className="mt-3 font-semibold">$50k–$500k per voyage</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
-                Single-voyage claims are 100× a container dispute. Evidence quality decides
-                them — which is exactly what software is for.
+                A single tanker or bulker claim is 100× a container dispute — one crude
+                cargo delayed three days is a six-figure argument. Evidence quality decides
+                it, which is exactly what software is for.
               </p>
             </div>
           </div>
-          <a
-            href="mailto:hello@meridian.freight?subject=Voyage%20demurrage%20pilot"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-fg transition hover:brightness-105"
-          >
-            Become a design partner <ArrowRight className="h-4 w-4" />
-          </a>
+          <div className="mt-8 flex flex-wrap items-center gap-5">
+            <a
+              href="mailto:hello@meridian.freight?subject=Voyage%20demurrage%20pilot"
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-fg transition hover:brightness-105"
+            >
+              Become a design partner <ArrowRight className="h-4 w-4" />
+            </a>
+            <p className="text-sm text-muted">
+              <strong className="text-fg">Pilot pricing:</strong> no subscription — 10% of recovered
+              demurrage or despatch. Founding design partners pay 5%, locked for two years.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* ---------- ROADMAP ---------- */}
       <section className="mx-auto max-w-4xl px-5 py-24">
-        <div className="max-w-2xl">
+        <div className="mx-auto max-w-2xl text-center">
           <div className="text-sm font-semibold text-accent">The next six months</div>
           <h2 className="mt-2 text-3xl font-semibold md:text-4xl">Where this is going</h2>
           <p className="mt-3 text-muted">
             Built in public. Everything marked live is running on this site today.
           </p>
         </div>
-        <ol className="mt-10 space-y-0">
+        <ol className="mx-auto mt-12 w-full max-w-xl space-y-0">
           <RoadmapItem when="Now" tag="LIVE" title="Track, audit, dispute, recover" body="Live countdowns on every container, line-by-line invoice audits, one-click dispute letters and a recovery pipeline — everything on this page is built and running." />
           <RoadmapItem when="Dec 2026" tag="IN BUILD" title="AI document extraction at scale + alert emails" body="AI reading of every invoice, bill of lading and booking at production scale, with alert emails before free time expires." />
           <RoadmapItem when="Jan 2027" tag="PLANNED" title="Connect your inbox" body="One-click, read-only Gmail and Outlook connection — we find carrier emails automatically, including last year's, so your free retro-audit becomes instant." />

@@ -42,7 +42,7 @@ export default function Investors() {
         <h2 className="text-2xl font-semibold">Why this wins</h2>
         <div className="mt-6 space-y-4">
           <Point n="01" title="Self-funding sales motion" body="The free retro-audit turns a cold prospect into a customer with one number: what they could have recovered. The product pays for itself before we invoice." />
-          <Point n="02" title="A wedge that widens" body="D&D disputes are the entry. The same engine extends to full freight-invoice audit, carrier performance data, recovery financing — and voyage demurrage, where single claims run $50k–$500k." />
+          <Point n="02" title="A wedge that widens into oil" body="D&D disputes are the entry. The same engine extends to full freight-invoice audit, carrier data, recovery financing — and voyage demurrage for tanker and bulker owners, where crude demurrage runs $30k+/day and single claims hit $500k. That market alone is measured in billions." />
           <Point n="03" title="Data compounds" body="Every audit teaches the system which carriers overcharge, where, and what wins. At scale that dataset is a product of its own — and a moat no entrant starts with." />
           <Point n="04" title="AI-native economics" body="One founder and an AI stack shipped what a seed-stage team builds in a year. Headcount follows revenue, not the other way round." />
         </div>
@@ -74,6 +74,29 @@ export default function Investors() {
           Blended subscription + success fees; funnel assumption of 350 accounts approached
           → 35 free audits → 10 customers in year one. Full model in the investor pack.
         </p>
+      </section>
+
+      <section className="mx-auto max-w-4xl px-5 py-10">
+        <div className="card p-8">
+          <div className="pill bg-accent-soft text-accent">See it yourself</div>
+          <h2 className="mt-3 text-2xl font-semibold">Walk the customer journey, live</h2>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+            Don&apos;t take the deck&apos;s word for it — log into the actual product with a
+            demo book of 45 shipments. Watch countdowns tick, open a disputable invoice,
+            read the audit findings, and generate a dispute letter yourself.
+          </p>
+          <div className="mt-5 flex flex-wrap items-center gap-4">
+            <Link
+              href="/app/login"
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-fg transition hover:brightness-105"
+            >
+              Open the portal <ArrowRight className="h-4 w-4" />
+            </Link>
+            <code className="rounded-lg border border-border bg-surface-2 px-4 py-2.5 font-mono text-xs">
+              investor@meridian.app · MeridianTour2026
+            </code>
+          </div>
+        </div>
       </section>
 
       <section className="mx-auto max-w-4xl px-5 py-10 pb-24">
