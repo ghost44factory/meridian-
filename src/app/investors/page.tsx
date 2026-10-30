@@ -56,6 +56,38 @@ export default function Investors() {
       </section>
 
       <section className="mx-auto max-w-4xl px-5 py-10">
+        <h2 className="text-2xl font-semibold">Against the incumbents</h2>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
+          The category leaders sell workflow software to the majors&apos; claims departments.
+          Marevo sells the outcome — recovered money — to the 95% of the market that has
+          no claims department at all.
+        </p>
+        <div className="card mt-6 overflow-x-auto">
+          <table className="w-full min-w-[640px] text-sm">
+            <thead>
+              <tr className="border-b border-border text-left font-display text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
+                <th className="px-5 py-3"></th>
+                <th className="px-5 py-3">Veson (IMOS)</th>
+                <th className="px-5 py-3">Voyager Portal</th>
+                <th className="px-5 py-3 text-accent">Marevo</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              <CompareRow label="You pay" a="Enterprise licence, results or not" b="Subscription, results or not" c="Mostly a % of money recovered" />
+              <CompareRow label="Who does the work" a="Your claims team, in their software" b="Your claims team, in their software" c="The AI drafts the claim; you approve" />
+              <CompareRow label="Container D&D + voyage demurrage" a="Voyage only" b="Voyage only" c="Both, one engine, two portals" />
+              <CompareRow label="Time to first value" a="Months of implementation" b="Pilot after workflow diagnosis" c="Free audit — a number in days" />
+              <CompareRow label="Built for" a="Majors (Cargill, Trafigura)" b="Traders' claims teams" c="The mid-market nobody serves" />
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-3 text-xs text-muted">
+          Based on each vendor&apos;s public positioning, Oct 2026. Veson has processed $71B
+          of claims in 20 years — the category is proven; the delivery model is what&apos;s stale.
+        </p>
+      </section>
+
+      <section className="mx-auto max-w-4xl px-5 py-10">
         <h2 className="text-2xl font-semibold">Base-case trajectory</h2>
         <div className="card mt-6 overflow-hidden">
           <table className="w-full text-sm">
@@ -151,6 +183,17 @@ function InvStat({ big, label }: { big: string; label: string }) {
       <div className="font-mono text-2xl font-semibold text-accent">{big}</div>
       <div className="mt-1.5 text-xs leading-snug text-muted">{label}</div>
     </div>
+  );
+}
+
+function CompareRow({ label, a, b, c }: { label: string; a: string; b: string; c: string }) {
+  return (
+    <tr>
+      <td className="px-5 py-3 font-medium">{label}</td>
+      <td className="px-5 py-3 text-muted">{a}</td>
+      <td className="px-5 py-3 text-muted">{b}</td>
+      <td className="px-5 py-3 font-medium text-accent">{c}</td>
+    </tr>
   );
 }
 
