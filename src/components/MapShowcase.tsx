@@ -134,7 +134,7 @@ export function MapShowcase() {
 
       {/* flying cursor */}
       <motion.div
-        className="pointer-events-none absolute z-10"
+        className="pointer-events-none absolute z-10 hidden sm:block"
         animate={{ left: `${apx}%`, top: `${apy}%` }}
         transition={{ type: "spring", stiffness: 60, damping: 16 }}
         style={{ translateX: "-20%", translateY: "-20%" }}
@@ -153,7 +153,7 @@ export function MapShowcase() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 6, scale: 0.98 }}
             transition={{ duration: 0.25 }}
-            className="absolute z-20 w-60 rounded-xl border border-white/10 bg-[#16181c]/95 p-3.5 shadow-2xl backdrop-blur"
+            className="absolute z-20 w-60 rounded-xl border border-white/10 bg-[#16181c]/95 p-3.5 shadow-2xl backdrop-blur max-sm:!left-3 max-sm:!right-3 max-sm:!top-auto max-sm:!bottom-3 max-sm:w-auto"
             style={{ left: `${cardLeft}%`, top: `${cardTop}%` }}
           >
             <div className="flex items-center justify-between">

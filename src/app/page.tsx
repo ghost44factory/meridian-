@@ -226,6 +226,23 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ---------- BRAND IMAGERY ---------- */}
+      <section className="mx-auto max-w-6xl px-5 pb-24">
+        <div className="grid gap-5 md:grid-cols-2">
+          <div className="overflow-hidden rounded-2xl border border-border">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/container-green.png" alt="Marevo green shipping container" className="h-64 w-full object-cover md:h-80" />
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-border">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/container-black.png" alt="Marevo black shipping container" className="h-64 w-full object-cover md:h-80" />
+          </div>
+        </div>
+        <p className="mt-4 text-center text-sm text-muted">
+          Every box has a clock on it. We make sure you never pay for a minute you don&apos;t owe.
+        </p>
+      </section>
+
       {/* ---------- OWNERS & CHARTERERS ---------- */}
       <section id="owners" className="dark" style={{ background: "#0b0c0e" }}>
         <div className="mx-auto max-w-6xl px-5 py-24 text-fg">
@@ -257,8 +274,8 @@ export default function Home() {
           <div className="mt-6 overflow-hidden rounded-2xl border border-border">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/brand/ship.png"
-              alt="Container vessel at sea carrying Marevo containers"
+              src="/brand/container-34-black.png"
+              alt="Marevo-branded shipping container"
               className="max-h-[380px] w-full object-cover"
             />
           </div>
