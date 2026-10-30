@@ -27,6 +27,9 @@ type Vessel = {
   draught: string;
   teuCapacity: string;
   lastEvent: string;
+  origin: string;
+  destination: string;
+  totalNm: number;
   containers?: Array<{
     no: string;
     cargo: string;
@@ -71,6 +74,9 @@ function generateVessels(): Vessel[] {
       congestion: (["Low", "Moderate", "Severe"] as const)[i % 3],
       heading: 45 + ((i * 17) % 315),
       region: REGIONS[laneIdx],
+      origin: ["Shanghai", "Shanghai", "New York", "Santos", "Sydney"][laneIdx],
+      destination: ["Los Angeles", "Rotterdam", "Rotterdam", "Rotterdam", "Shanghai"][laneIdx],
+      totalNm: [5800, 10500, 3300, 5300, 4900][laneIdx],
       imo: `${9400000 + i * 1373}`,
       flag: ["Panama", "Liberia", "Marshall Is.", "Malta", "Hong Kong", "Singapore"][i % 6],
       callsign: `${["3F", "A8", "V7", "9H", "VR", "9V"][i % 6]}${String.fromCharCode(65 + (i % 24))}${1000 + i * 7}`,
@@ -295,33 +301,70 @@ function VesselPanel({ vessel, onClose }: { vessel: Vessel; onClose: () => void 
         </button>
       </div>
 
-      <div className="mt-6 grid grid-cols-2 gap-3 font-mono text-xs">
-        <PanelStat label="IMO" value={vessel.imo} />
-        <PanelStat label="Flag" value={vessel.flag} />
-        <PanelStat label="Callsign" value={vessel.callsign} />
-        <PanelStat label="Capacity" value={vessel.teuCapacity} />
-        <PanelStat label="Speed" value={`${14 + Math.round(vessel.progress * 8)}kn`} />
-        <PanelStat label="Heading" value={`${vessel.heading.toFixed(0)}°`} />
-        <PanelStat label="Draught" value={vessel.draught} />
-        <PanelStat label="Last event" value={vessel.lastEvent} />
-        <PanelStat label="Next port" value={vessel.nextPort} />
-        <PanelStat label="ETA" value={vessel.eta} />
-        <PanelStat
-          label="Berth congestion"
-          value={vessel.congestion}
-          valueClass={
-            vessel.congestion === "Severe" ? "text-coral" : vessel.congestion === "Moderate" ? "text-amber" : "text-cyan"
-          }
-        />
-        <PanelStat
-          label="Status"
-          value={vessel.status === "on" ? "On schedule" : vessel.status === "risk" ? "Free-time risk" : "Demurrage"}
-          valueClass={vessel.status === "on" ? "text-cyan" : vessel.status === "risk" ? "text-amber" : "text-coral"}
-        />
+      {vessel.status !== "on" && (
+        <div
+          className="mt-5 flex items-start gap-2.5 rounded-xl border px-4 py-3 text-xs leading-relaxed"
+          style={{
+            borderColor: vessel.status === "demurrage" ? "var(--danger)" : "var(--warn)",
+            background: vessel.status === "demurrage" ? "color-mix(in srgb, var(--danger) 12%, transparent)" : "color-mix(in srgb, var(--warn) 12%, transparent)",
+          }}
+        >
+          <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full" style={{ background: vessel.status === "demurrage" ? "var(--danger)" : "var(--warn)" }} />
+          <span>
+            {vessel.status === "demurrage"
+              ? "Charges accruing on cargo aboard — the audit has drafted a dispute for the affected invoice."
+              : "Free time is running out on cargo aboard — book your haulier before arrival to keep charges at zero."}
+          </span>
+        </div>
+      )}
+
+      {/* Voyage */}
+      <div className="mt-5 rounded-xl border border-border bg-surface-2/60 p-4">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-mist">Voyage</div>
+        <div className="mt-2.5 flex items-center justify-between text-sm font-medium">
+          <span>{vessel.origin}</span>
+          <span className="px-2 text-mist">→</span>
+          <span className="text-right">{vessel.destination}</span>
+        </div>
+        <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-surface-2">
+          <div className="h-full rounded-full bg-cyan" style={{ width: `${Math.round(vessel.progress * 100)}%` }} />
+        </div>
+        <div className="mt-2 flex flex-wrap justify-between gap-2 font-mono text-[11px] text-mist">
+          <span>{Math.round(vessel.progress * 100)}% complete</span>
+          <span>{Math.round(vessel.totalNm * (1 - vessel.progress)).toLocaleString()} nm remaining</span>
+          <span>ETA {vessel.eta}</span>
+        </div>
       </div>
 
-      <div className="mt-8">
-        <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-mist">
+      {/* Vessel identity */}
+      <div className="mt-5">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-mist">Vessel</div>
+        <div className="mt-2.5 grid grid-cols-3 gap-2 text-xs">
+          <PanelStat label="IMO" value={vessel.imo} mono />
+          <PanelStat label="Flag" value={vessel.flag} />
+          <PanelStat label="Callsign" value={vessel.callsign} mono />
+          <PanelStat label="Capacity" value={vessel.teuCapacity} mono />
+          <PanelStat label="Speed" value={`${14 + Math.round(vessel.progress * 8)} kn`} mono />
+          <PanelStat label="Draught" value={vessel.draught} mono />
+        </div>
+      </div>
+
+      {/* Port call */}
+      <div className="mt-5">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-mist">Next port call</div>
+        <div className="mt-2.5 grid grid-cols-3 gap-2 text-xs">
+          <PanelStat label="Port" value={vessel.nextPort} />
+          <PanelStat
+            label="Congestion"
+            value={vessel.congestion}
+            valueClass={vessel.congestion === "Severe" ? "text-coral" : vessel.congestion === "Moderate" ? "text-amber" : "text-cyan"}
+          />
+          <PanelStat label="Last event" value={vessel.lastEvent} />
+        </div>
+      </div>
+
+      <div className="mt-6">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-mist">
           Your cargo on this vessel
         </div>
         <div className="mt-3 space-y-3">
@@ -376,11 +419,15 @@ function VesselPanel({ vessel, onClose }: { vessel: Vessel; onClose: () => void 
   );
 }
 
-function PanelStat({ label, value, valueClass = "text-paper" }: { label: string; value: string; valueClass?: string }) {
+function PanelStat({
+  label, value, valueClass = "text-paper", mono,
+}: {
+  label: string; value: string; valueClass?: string; mono?: boolean;
+}) {
   return (
-    <div className="rounded-lg border border-border bg-surface-2/60 px-3 py-2">
-      <div className="text-[9px] uppercase tracking-widest text-mist">{label}</div>
-      <div className={`mt-1 ${valueClass}`}>{value}</div>
+    <div className="rounded-lg border border-border bg-surface-2/60 px-2.5 py-2">
+      <div className="text-[9px] uppercase tracking-wider text-mist">{label}</div>
+      <div className={`mt-1 truncate text-[11px] ${mono ? "font-mono" : ""} ${valueClass}`} title={value}>{value}</div>
     </div>
   );
 }
