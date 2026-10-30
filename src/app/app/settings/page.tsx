@@ -8,19 +8,65 @@ export default function SettingsPage() {
   const [orgName, setOrgName] = useState("—");
   const [email, setEmail] = useState("—");
   const [threshold, setThreshold] = useState(3);
+  const [inboundToken, setInboundToken] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const sb = supabase();
     sb.auth.getUser().then(({ data }) => setEmail(data.user?.email ?? "—"));
-    sb.from("orgs").select("name").maybeSingle().then(({ data }) => {
-      if (data) setOrgName((data as { name: string }).name);
+    sb.from("orgs").select("name,inbound_token").maybeSingle().then(({ data }) => {
+      if (data) {
+        setOrgName((data as { name: string }).name);
+        setInboundToken((data as { inbound_token?: string }).inbound_token ?? null);
+      }
     });
   }, []);
+
+  const forwardAddress = inboundToken ? `docs-${inboundToken}@in.marevoapp.com` : null;
+
+  async function copyAddress() {
+    if (!forwardAddress) return;
+    try {
+      await navigator.clipboard.writeText(forwardAddress);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {}
+  }
 
   return (
     <AppShell>
       <h1 className="font-display text-xl font-semibold">Settings</h1>
-      <div className="mt-6 grid gap-4 lg:grid-cols-2">
+
+      <Panel className="mt-6 p-5">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="text-sm font-semibold">Connect your inbox</div>
+          <span className="rounded-full bg-cyan/15 px-2.5 py-1 font-display text-[10px] font-semibold uppercase tracking-[0.14em] text-cyan">
+            Your private intake address
+          </span>
+        </div>
+        <p className="mt-2 text-sm text-mist">
+          Auto-forward carrier emails here — demurrage invoices, arrival notices, BLs. Attachments are
+          extracted by AI on arrival and land in your Review Queue, no uploading.
+        </p>
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <code className="rounded-lg border border-border bg-surface-2 px-4 py-2.5 font-mono text-sm text-cyan">
+            {forwardAddress ?? "provisioning…"}
+          </code>
+          <button
+            onClick={copyAddress}
+            disabled={!forwardAddress}
+            className="rounded-full bg-cyan px-4 py-2 text-xs font-semibold text-navy transition hover:brightness-110 disabled:opacity-50"
+          >
+            {copied ? "Copied ✓" : "Copy address"}
+          </button>
+        </div>
+        <p className="mt-3 text-xs text-mist">
+          Set a rule in Gmail/Outlook: from your carriers → auto-forward here. Read-only one-click
+          inbox sync is on the roadmap; this address is live for your account today.
+        </p>
+      </Panel>
+
+      <div className="mt-4 grid gap-4 lg:grid-cols-2">
         <Panel className="p-5">
           <div className="text-sm font-semibold">Organisation</div>
           <div className="mt-3 space-y-2 text-sm">

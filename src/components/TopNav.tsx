@@ -59,7 +59,7 @@ export function TopNav() {
           <a href="/#product" className="text-sm text-muted transition hover:text-fg">Product</a>
           <a href="/#how" className="text-sm text-muted transition hover:text-fg">How it works</a>
           <a href="/#pricing" className="text-sm text-muted transition hover:text-fg">Pricing</a>
-          <a href="/#owners" className="text-sm text-muted transition hover:text-fg">Vessel owners</a>
+          <Link href="/owners" className="text-sm text-muted transition hover:text-fg">Vessel owners</Link>
           <Link href="/map" className="text-sm text-muted transition hover:text-fg">Live demo</Link>
         </div>
         <div className="flex items-center gap-2.5">

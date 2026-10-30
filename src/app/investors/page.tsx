@@ -116,6 +116,30 @@ export default function Investors() {
       </section>
 
       <section className="mx-auto max-w-4xl px-5 py-10">
+        <h2 className="text-2xl font-semibold">Team</h2>
+        <div className="mt-6 grid gap-5 md:grid-cols-2">
+          <div className="card p-6">
+            <h3 className="font-display text-lg font-semibold">Taimur Javaid</h3>
+            <div className="mt-0.5 font-display text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">Founder &amp; CEO</div>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              Operator across trade and manufacturing — ships containers out of South Asia and the
+              Gulf for his own B2B apparel business, so he has paid these invoices himself. Built
+              Marevo AI-native from day one: live product, two portals, near-zero run cost.
+            </p>
+          </div>
+          <div className="card p-6">
+            <h3 className="font-display text-lg font-semibold">Najah Shehzad</h3>
+            <div className="mt-0.5 font-display text-[11px] font-semibold uppercase tracking-[0.14em] text-accent">Co-founder — Growth &amp; Partnerships</div>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              Founder &amp; CEO of PARALLAX, a property-media studio, where she owns client
+              onboarding and relationships. Currently at IE in Madrid — bringing its venture
+              programme and Gulf-heavy alumni network to Marevo&apos;s raise and pilot pipeline.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-4xl px-5 py-10">
         <div className="card p-8">
           <div className="pill bg-accent-soft text-accent">See it yourself</div>
           <h2 className="mt-3 text-2xl font-semibold">Walk the customer journey, live</h2>

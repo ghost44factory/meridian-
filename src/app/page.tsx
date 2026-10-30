@@ -324,11 +324,12 @@ export default function Home() {
         </div>
         <ol className="mx-auto mt-12 w-full max-w-xl space-y-0">
           <RoadmapItem when="Now" tag="LIVE" title="Track, audit, dispute, recover" body="Live countdowns on every container, line-by-line invoice audits, one-click dispute letters and a recovery pipeline — everything on this page is built and running." />
-          <RoadmapItem when="Dec 2026" tag="IN BUILD" title="AI document extraction at scale + alert emails" body="AI reading of every invoice, bill of lading and booking at production scale, with alert emails before free time expires." />
-          <RoadmapItem when="Jan 2027" tag="PLANNED" title="Connect your inbox" body="One-click, read-only Gmail and Outlook connection — we find carrier emails automatically, including last year's, so your free retro-audit becomes instant." />
+          <RoadmapItem when="Oct 2026" tag="LIVE" title="AI document extraction" body="Claude-powered reading of invoices, BLs, bookings and contracts — shipped, with confidence scoring and a human review queue on every extraction." />
+          <RoadmapItem when="Oct 2026" tag="LIVE" title="Owner portal — voyage demurrage" body="A second portal for vessel owners: fleet laytime positions, demurrage exposure per voyage, and claims tracked from draft to settlement. Live in demo today." />
+          <RoadmapItem when="Now" tag="SHIPPING" title="Connect your inbox" body="Every customer gets a private forwarding address — auto-forward carrier emails and documents extract themselves. Read-only Gmail/Outlook sync follows." />
+          <RoadmapItem when="Dec 2026" tag="IN BUILD" title="Alert emails + SOF parsing" body="Free-time warnings in your inbox before the clock bites, and Statement-of-Facts parsing to power owner-side laytime statements end to end." />
           <RoadmapItem when="Feb 2027" tag="PLANNED" title="Live AIS vessel feed" body="Terminal and satellite data switch the map from estimated to real-time positions, port congestion included." />
-          <RoadmapItem when="Mar 2027" tag="PLANNED" title="Auto-filed disputes + recovery-based billing" body="Set approval rules once and strong-evidence disputes file themselves. Billing runs automatically on recovered money." />
-          <RoadmapItem when="Apr 2027" tag="DEMO LIVE" title="Voyage demurrage for owners & charterers" body="Owner portal is live in demo today — laytime positions, exposure and claims. Full SOF automation and the owner pilot land Apr 2027." last />
+          <RoadmapItem when="Apr 2027" tag="PLANNED" title="Auto-filed claims + recovery billing" body="Strong-evidence disputes and owner claims file themselves under your approval rules; billing runs on recovered money. Owner pilot opens." last />
         </ol>
       </section>
 
