@@ -41,7 +41,7 @@ export default function Investors() {
       <section className="mx-auto max-w-4xl px-5 py-10">
         <div className="overflow-hidden rounded-2xl border border-border">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/container.png" alt="Marevo-branded shipping container" className="w-full" />
+          <img src="/brand/container-green.png" alt="Marevo-branded shipping container" className="w-full" />
         </div>
       </section>
 
