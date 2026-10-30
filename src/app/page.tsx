@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { TopNav, Logo } from "@/components/TopNav";
 import { RoiCalculator } from "@/components/RoiCalculator";
+import { MapShowcase } from "@/components/MapShowcase";
 import {
   FileSearch, Radar, Scale, BellRing, ArrowRight, Check,
   Upload, Mail, MousePointerClick, Banknote, ShieldCheck,
@@ -88,7 +89,8 @@ export default function Home() {
             Your freight back-office, on autopilot
           </h2>
           <p className="mt-3 text-muted">
-            Forward us your shipping emails. Everything else happens automatically.
+            Forward us your shipping emails — or connect your inbox and we find them
+            automatically. Everything else just happens.
           </p>
         </div>
         <div className="mt-10 grid gap-5 md:grid-cols-2">
@@ -118,39 +120,32 @@ export default function Home() {
       {/* ---------- LIVE MAP ---------- */}
       <section className="border-t border-border bg-surface">
         <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="grid items-center gap-12 lg:grid-cols-5">
-            <div className="lg:col-span-2">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div className="max-w-2xl">
               <div className="text-sm font-semibold text-accent">The live map</div>
               <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
                 Your whole shipping world, on one screen
               </h2>
               <p className="mt-4 text-muted">
-                Every vessel carrying your containers, live. A mid-size forwarder&apos;s
-                entire operation — hundreds of boxes on dozens of ships — becomes one glance.
+                This is the actual product, running below — watch it click a vessel and pull
+                up the cargo. Every route follows real sea lanes; every countdown is live.
               </p>
-              <ul className="mt-6 space-y-3">
-                <MapPoint title="Colour is risk" body="Green is on schedule, amber means free time is running out, red means charges are accruing right now." />
-                <MapPoint title="Click any vessel" body="See exactly which of your containers are on board, their cargo, and each one's free-time countdown." />
-                <MapPoint title="From estimate to live" body="Positions switch to real-time AIS satellite data the moment your account goes live." />
-              </ul>
-              <Link
-                href="/map"
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-fg transition hover:brightness-105"
-              >
-                Open the interactive demo <ArrowRight className="h-4 w-4" />
-              </Link>
             </div>
-            <div className="lg:col-span-3">
-              <div className="card overflow-hidden p-1.5">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/shots/live-map.png"
-                  alt="Meridian live map — vessels carrying your containers, colour-coded by risk"
-                  className="w-full rounded-xl"
-                />
-              </div>
-            </div>
+            <Link
+              href="/map"
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-fg transition hover:brightness-105"
+            >
+              Open the interactive demo <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
+          <div className="mt-10">
+            <MapShowcase />
+          </div>
+          <ul className="mt-8 grid gap-4 md:grid-cols-3">
+            <MapPoint title="Colour is risk" body="Green is on schedule, amber means free time is running out, red means charges are accruing right now." />
+            <MapPoint title="Click any vessel" body="See exactly which of your containers are on board, their cargo, and each one's free-time countdown." />
+            <MapPoint title="From estimate to live" body="Positions switch to real-time AIS satellite data the moment your account goes live." />
+          </ul>
         </div>
       </section>
 
@@ -168,7 +163,7 @@ export default function Home() {
               n={1}
               icon={<Mail className="h-5 w-5" />}
               title="Forward your emails"
-              body="Auto-forward carrier emails to your Meridian address. Contracts uploaded once a year."
+              body="Auto-forward carrier emails to your Meridian address — or connect Gmail/Outlook read-only and we find them, history included. Contracts uploaded once a year."
             />
             <Step
               n={2}
@@ -231,26 +226,77 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------- PHASE 3 STRIP ---------- */}
-      <section className="mx-auto max-w-6xl px-5 py-16">
-        <div className="card flex flex-col items-start justify-between gap-5 p-8 md:flex-row md:items-center">
-          <div>
-            <div className="pill bg-accent-soft text-accent">In development</div>
-            <h3 className="mt-3 text-xl font-semibold">
-              Voyage demurrage for vessel owners &amp; charterers
-            </h3>
-            <p className="mt-1 max-w-xl text-sm text-muted">
-              The same audit engine, pointed at charter parties and laytime — where single
-              claims run $50k–$500k. Owners and charterers: join the design-partner pilot.
-            </p>
+      {/* ---------- OWNERS & CHARTERERS ---------- */}
+      <section className="dark" style={{ background: "#0b0c0e" }}>
+        <div className="mx-auto max-w-6xl px-5 py-24 text-fg">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div className="max-w-2xl">
+              <div className="text-sm font-semibold text-accent">For vessel owners &amp; charterers</div>
+              <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
+                The other side of demurrage
+              </h2>
+              <p className="mt-4 text-muted">
+                Containers are where we started. Voyage demurrage — the laytime claims
+                between owners and charterers — is the same dispute with another zero on
+                it. The engine is built for both; the pilot opens next year.
+              </p>
+            </div>
+            <div className="pill border border-accent/40 bg-accent-soft text-accent">
+              In development · pilot Apr 2027
+            </div>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            <div className="card p-6">
+              <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-accent">Laytime engine</div>
+              <h3 className="mt-3 font-semibold">SOF in, laytime statement out</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                Statements of facts parsed automatically; laytime computed against the
+                charter party's own terms — weather, shifts, exceptions included.
+              </p>
+            </div>
+            <div className="card p-6">
+              <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-accent">Charter-party aware</div>
+              <h3 className="mt-3 font-semibold">Your CP is the contract</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                The same clause-level audit we run on container contracts, pointed at
+                charter parties — demurrage rates, despatch, notice provisions.
+              </p>
+            </div>
+            <div className="card p-6">
+              <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-accent">Claims that matter</div>
+              <h3 className="mt-3 font-semibold">$50k–$500k per voyage</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                Single-voyage claims are 100× a container dispute. Evidence quality decides
+                them — which is exactly what software is for.
+              </p>
+            </div>
           </div>
           <a
             href="mailto:hello@meridian.freight?subject=Voyage%20demurrage%20pilot"
-            className="shrink-0 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-medium transition hover:bg-surface-2"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-fg transition hover:brightness-105"
           >
-            Join the pilot →
+            Become a design partner <ArrowRight className="h-4 w-4" />
           </a>
         </div>
+      </section>
+
+      {/* ---------- ROADMAP ---------- */}
+      <section className="mx-auto max-w-4xl px-5 py-24">
+        <div className="max-w-2xl">
+          <div className="text-sm font-semibold text-accent">The next six months</div>
+          <h2 className="mt-2 text-3xl font-semibold md:text-4xl">Where this is going</h2>
+          <p className="mt-3 text-muted">
+            Built in public. Everything marked live is running on this site today.
+          </p>
+        </div>
+        <ol className="mt-10 space-y-0">
+          <RoadmapItem when="Now" tag="LIVE" title="Track, audit, dispute, recover" body="Live countdowns on every container, line-by-line invoice audits, one-click dispute letters and a recovery pipeline — everything on this page is built and running." />
+          <RoadmapItem when="Dec 2026" tag="IN BUILD" title="AI document extraction at scale + alert emails" body="AI reading of every invoice, bill of lading and booking at production scale, with alert emails before free time expires." />
+          <RoadmapItem when="Jan 2027" tag="PLANNED" title="Connect your inbox" body="One-click, read-only Gmail and Outlook connection — we find carrier emails automatically, including last year's, so your free retro-audit becomes instant." />
+          <RoadmapItem when="Feb 2027" tag="PLANNED" title="Live AIS vessel feed" body="Terminal and satellite data switch the map from estimated to real-time positions, port congestion included." />
+          <RoadmapItem when="Mar 2027" tag="PLANNED" title="Auto-filed disputes + recovery-based billing" body="Set approval rules once and strong-evidence disputes file themselves. Billing runs automatically on recovered money." />
+          <RoadmapItem when="Apr 2027" tag="PILOT" title="Voyage demurrage for owners & charterers" body="The audit engine pointed at charter parties, laytime statements and $50k–$500k voyage claims." last />
+        </ol>
       </section>
 
       {/* ---------- FAQ ---------- */}
@@ -288,7 +334,8 @@ export default function Home() {
           <div className="flex gap-6 text-xs text-muted">
             <Link href="/app/login" className="hover:text-fg">Sign in</Link>
             <Link href="/map" className="hover:text-fg">Live demo</Link>
-            <a href="#" className="hover:text-fg">Security</a>
+            <Link href="/careers" className="hover:text-fg">Careers</Link>
+            <Link href="/investors" className="hover:text-fg">Investors</Link>
             <a href="#" className="hover:text-fg">Privacy</a>
           </div>
           <div className="text-xs text-muted">© 2026 Meridian Freight Intelligence</div>
@@ -395,6 +442,30 @@ function Plan({
         ))}
       </ul>
     </div>
+  );
+}
+
+function RoadmapItem({
+  when, tag, title, body, last,
+}: {
+  when: string; tag: string; title: string; body: string; last?: boolean;
+}) {
+  const tone =
+    tag === "LIVE" ? "bg-accent text-accent-fg" :
+    tag === "IN BUILD" ? "bg-warn-soft text-warn" : "bg-surface-2 text-muted";
+  return (
+    <li className="relative flex gap-5 pb-10">
+      {!last && <span className="absolute left-[7px] top-5 h-full w-px bg-border" />}
+      <span className={`mt-1.5 h-[15px] w-[15px] shrink-0 rounded-full border-2 ${tag === "LIVE" ? "border-accent bg-accent" : "border-border bg-surface"}`} />
+      <div>
+        <div className="flex flex-wrap items-center gap-2.5">
+          <span className="font-mono text-xs text-muted">{when}</span>
+          <span className={`rounded-full px-2.5 py-0.5 font-mono text-[10px] tracking-wider ${tone}`}>{tag}</span>
+        </div>
+        <h3 className="mt-1.5 font-semibold">{title}</h3>
+        <p className="mt-1 max-w-xl text-sm leading-relaxed text-muted">{body}</p>
+      </div>
+    </li>
   );
 }
 
