@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     method: "POST",
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      from: process.env.ALERT_FROM ?? "Meridian <onboarding@resend.dev>",
+      from: process.env.ALERT_FROM ?? "Marevo <onboarding@resend.dev>",
       to: [to],
       subject: email.subject,
       html: email.html,

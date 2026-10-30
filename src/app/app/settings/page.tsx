@@ -54,7 +54,7 @@ export default function SettingsPage() {
           <p className="mt-2 text-xs leading-relaxed text-mist">
             Documents are stored encrypted in a private bucket isolated to your organisation. Row-level
             security enforces tenant isolation at the database layer. Billing: platform fee + success
-            fee on recovered charges, invoiced monthly. Meridian never handles recovered funds —
+            fee on recovered charges, invoiced monthly. Marevo never handles recovered funds —
             carriers credit you directly.
           </p>
         </Panel>

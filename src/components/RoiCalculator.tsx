@@ -73,7 +73,7 @@ export function RoiCalculator() {
             </div>
           </div>
           <a
-            href="mailto:hello@meridian.freight?subject=Free%20retro-audit"
+            href="mailto:hello@marevohq.com?subject=Free%20retro-audit"
             className="mt-2 inline-flex w-fit items-center rounded-full bg-cyan px-6 py-3 text-sm font-medium text-navy transition hover:brightness-110"
           >
             Claim your free audit →

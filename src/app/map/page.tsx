@@ -35,7 +35,7 @@ const SHIPPING_LANES: Lane[] = LANE_KEYS.map((k) => makeLane(LANES[k]));
 
 function generateVessels(): Vessel[] {
   const NAMES = [
-    "MSC Aurora", "Maersk Halcyon", "Ever Golden", "ONE Meridian", "CMA CGM Sirius",
+    "MSC Aurora", "Maersk Halcyon", "Ever Golden", "ONE Marevo", "CMA CGM Sirius",
     "Cosco Andes", "Hapag Marlin", "MSC Kepler", "Yang Ming Orion", "ZIM Polaris",
     "Maersk Vega", "Wan Hai Nova",
   ];

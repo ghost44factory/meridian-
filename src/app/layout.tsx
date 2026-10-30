@@ -13,17 +13,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Meridian — Recover the shipping charges you don't owe",
+  title: "Marevo — Recover the shipping charges you don't owe",
   description:
-    "Meridian tracks your containers, audits every demurrage & detention invoice against your contracts, and drafts the dispute for you. Free audit of last quarter's invoices.",
+    "Marevo tracks your containers, audits every demurrage & detention invoice against your contracts, and drafts the dispute for you. Free audit of last quarter's invoices.",
   openGraph: {
-    title: "Meridian — AI-native freight intelligence",
+    title: "Marevo — AI-native freight intelligence",
     description: "Every container tracked. Every overcharge contested.",
     type: "website",
   },
 };
 
-const themeInit = `(function(){try{var t=localStorage.getItem('meridian-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})();`;
+const themeInit = `(function(){try{var t=localStorage.getItem('marevo-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})();`;
 
 export default function RootLayout({
   children,

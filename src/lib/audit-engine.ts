@@ -1,5 +1,5 @@
 /**
- * Meridian audit rules engine.
+ * Marevo audit rules engine.
  *
  * Deterministic auditing of demurrage & detention charges against contract
  * terms, terminal timestamps, and regulatory requirements. All date and rate

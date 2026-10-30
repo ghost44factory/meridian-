@@ -5,11 +5,11 @@ const wrap = (inner: string) => `
   <div style="max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #e6e8eb;border-radius:16px;overflow:hidden;">
     <div style="padding:20px 28px;border-bottom:1px solid #e6e8eb;">
       <span style="display:inline-block;width:12px;height:12px;border-radius:999px;background:#12b76a;vertical-align:middle;"></span>
-      <span style="font-size:17px;font-weight:700;color:#17181c;vertical-align:middle;margin-left:9px;">Meridian</span>
+      <span style="font-size:17px;font-weight:700;color:#17181c;vertical-align:middle;margin-left:9px;">Marevo</span>
     </div>
     <div style="padding:28px;">${inner}</div>
     <div style="padding:16px 28px;border-top:1px solid #e6e8eb;font-size:11px;color:#9aa1ac;">
-      Meridian freight intelligence · automated alert · reply to reach the team
+      Marevo freight intelligence · automated alert · reply to reach the team
     </div>
   </div>
 </div>`;
@@ -34,7 +34,7 @@ export function freeTimeAlert(p: {
       <p style="font-size:14px;color:#6a7280;line-height:1.6;">
         Book your haulier or arrange pickup now to keep this charge at zero.
       </p>
-      <a href="https://meridian-five-teal.vercel.app/app/shipments"
+      <a href="https://marevohq.com/app/shipments"
          style="display:inline-block;background:#12b76a;color:#ffffff;font-size:14px;font-weight:600;padding:11px 22px;border-radius:999px;text-decoration:none;">
         View the countdown
       </a>`),
@@ -63,7 +63,7 @@ export function disputableInvoice(p: {
       <p style="font-size:14px;color:#6a7280;line-height:1.6;">
         The dispute letter is drafted with the evidence attached — review and send with one click.
       </p>
-      <a href="https://meridian-five-teal.vercel.app/app/invoices"
+      <a href="https://marevohq.com/app/invoices"
          style="display:inline-block;background:#12b76a;color:#ffffff;font-size:14px;font-weight:600;padding:11px 22px;border-radius:999px;text-decoration:none;">
         Review &amp; send the dispute
       </a>`),

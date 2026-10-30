@@ -7,7 +7,7 @@ import { supabase } from "@/lib/supabase";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("demo@meridian.app");
+  const [email, setEmail] = useState("demo@marevo.app");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,7 @@ export default function LoginPage() {
           <span className="relative flex h-7 w-7 items-center justify-center rounded-full border border-cyan/60">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan glow-cyan" />
           </span>
-          <span className="font-display text-xl font-semibold tracking-tight">Meridian</span>
+          <span className="font-display text-xl font-semibold tracking-tight">Marevo</span>
         </Link>
         <form onSubmit={signIn} className="glass-panel rounded-2xl p-8">
           <h1 className="font-display text-xl font-semibold">Sign in</h1>
@@ -62,7 +62,7 @@ export default function LoginPage() {
             {loading ? "Signing in…" : "Sign in"}
           </button>
           <p className="mt-4 text-center text-[11px] text-mist/70">
-            Demo: demo@meridian.app · MeridianDemo2026!
+            Demo: demo@marevo.app · MarevoDemo2026!
           </p>
         </form>
       </div>

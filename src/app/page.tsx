@@ -25,7 +25,7 @@ export default function Home() {
               <span className="text-accent"> you don&apos;t owe.</span>
             </h1>
             <p className="mt-5 max-w-md text-lg leading-relaxed text-muted">
-              Meridian tracks every container, audits every demurrage &amp; detention
+              Marevo tracks every container, audits every demurrage &amp; detention
               invoice against your contracts, and drafts the dispute — automatically.
               You review, click send, and get credited.
             </p>
@@ -54,7 +54,7 @@ export default function Home() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/shots/hero-dashboard.png"
-                alt="Meridian dashboard — live free-time countdowns and recovered charges"
+                alt="Marevo dashboard — live free-time countdowns and recovered charges"
                 className="w-full rounded-xl"
               />
             </div>
@@ -84,7 +84,7 @@ export default function Home() {
       {/* ---------- WHAT MERIDIAN DOES ---------- */}
       <section id="product" className="mx-auto max-w-6xl px-5 py-24">
         <div className="max-w-2xl">
-          <div className="text-sm font-semibold text-accent">What Meridian does</div>
+          <div className="text-sm font-semibold text-accent">What Marevo does</div>
           <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
             Your freight back-office, on autopilot
           </h2>
@@ -163,7 +163,7 @@ export default function Home() {
               n={1}
               icon={<Mail className="h-5 w-5" />}
               title="Forward your emails"
-              body="Auto-forward carrier emails to your Meridian address — or connect Gmail/Outlook read-only and we find them, history included. Contracts uploaded once a year."
+              body="Auto-forward carrier emails to your Marevo address — or connect Gmail/Outlook read-only and we find them, history included. Contracts uploaded once a year."
             />
             <Step
               n={2}
@@ -275,7 +275,7 @@ export default function Home() {
           </div>
           <div className="mt-8 flex flex-wrap items-center gap-5">
             <a
-              href="mailto:hello@meridian.freight?subject=Voyage%20demurrage%20pilot"
+              href="mailto:hello@marevohq.com?subject=Voyage%20demurrage%20pilot"
               className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-fg transition hover:brightness-105"
             >
               Become a design partner <ArrowRight className="h-4 w-4" />
@@ -311,8 +311,8 @@ export default function Home() {
       <section className="mx-auto max-w-3xl px-5 pb-24">
         <h2 className="text-2xl font-semibold">Questions, answered</h2>
         <div className="mt-6 space-y-3">
-          <Faq q="Do you handle our money?" a="Never. Carriers credit or refund you directly. Meridian invoices its success fee afterwards, against recoveries evidenced by the carrier's own credit note." />
-          <Faq q="What do we have to upload?" a="Almost nothing by hand. Auto-forward carrier emails to your Meridian address; upload each carrier contract once a year. Everything else is extracted automatically." />
+          <Faq q="Do you handle our money?" a="Never. Carriers credit or refund you directly. Marevo invoices its success fee afterwards, against recoveries evidenced by the carrier's own credit note." />
+          <Faq q="What do we have to upload?" a="Almost nothing by hand. Auto-forward carrier emails to your Marevo address; upload each carrier contract once a year. Everything else is extracted automatically." />
           <Faq q="Is our data safe?" a="Each customer's data is isolated at the database level with row-level security, stored encrypted in a private bucket, UK/EU region. Your documents are never shared or used to train public models." />
           <Faq q="What if we stop getting charges?" a="Perfect — that's the prevention layer doing its job. The subscription covers tracking, alerts and audit; the success fee only ever applies to what we actually recover." />
         </div>
@@ -328,7 +328,7 @@ export default function Home() {
             The audit is free whether or not you ever become a customer.
           </p>
           <a
-            href="mailto:hello@meridian.freight?subject=Free%20retro-audit"
+            href="mailto:hello@marevohq.com?subject=Free%20retro-audit"
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-accent-fg transition hover:brightness-105"
           >
             Claim your free audit <ArrowRight className="h-4 w-4" />
@@ -346,7 +346,7 @@ export default function Home() {
             <Link href="/investors" className="hover:text-fg">Investors</Link>
             <a href="#" className="hover:text-fg">Privacy</a>
           </div>
-          <div className="text-xs text-muted">© 2026 Meridian Freight Intelligence</div>
+          <div className="text-xs text-muted">© 2026 Marevo Intelligence Ltd</div>
         </div>
       </footer>
     </div>

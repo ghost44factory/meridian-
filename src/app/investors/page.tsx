@@ -2,7 +2,7 @@ import Link from "next/link";
 import { TopNav, Logo } from "@/components/TopNav";
 import { ArrowRight } from "lucide-react";
 
-export const metadata = { title: "Investors — Meridian" };
+export const metadata = { title: "Investors — Marevo" };
 
 const PROJECTIONS = [
   { year: "Year 1", customers: "10", arr: "£180k" },
@@ -93,7 +93,7 @@ export default function Investors() {
               Open the portal <ArrowRight className="h-4 w-4" />
             </Link>
             <code className="rounded-lg border border-border bg-surface-2 px-4 py-2.5 font-mono text-xs">
-              investor@meridian.app · MeridianTour2026
+              investor@marevo.app · MarevoTour2026
             </code>
           </div>
         </div>
@@ -111,7 +111,7 @@ export default function Investors() {
             </p>
           </div>
           <a
-            href="mailto:hello@meridian.freight?subject=Investor%20pack%20request"
+            href="mailto:hello@marevohq.com?subject=Investor%20pack%20request"
             className="inline-flex shrink-0 items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-fg transition hover:brightness-105"
           >
             Request the pack <ArrowRight className="h-4 w-4" />

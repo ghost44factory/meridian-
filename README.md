@@ -1,4 +1,4 @@
-# Meridian
+# Marevo
 
 AI-native freight intelligence — demurrage & detention recovery for freight forwarders,
 NVOCCs and importers. Every container tracked. Every overcharge contested.
@@ -29,10 +29,10 @@ npm run dev
 Env vars in `.env.local` (Supabase URL + publishable key are safe for the client;
 `ANTHROPIC_API_KEY` is server-side only).
 
-Demo login: `demo@meridian.app` / `MeridianDemo2026!`
+Demo login: `demo@marevo.app` / `MarevoDemo2026!`
 
 ## Database
 
-Schema is managed via Supabase migrations (`meridian_core_schema`, `staff_admin_access`).
+Schema is managed via Supabase migrations (`marevo_core_schema`, `staff_admin_access`).
 Tables: orgs, profiles, shipments, contracts, documents, invoices, disputes, alerts —
 all with org-scoped RLS; staff flag grants cross-org read for the admin console.
