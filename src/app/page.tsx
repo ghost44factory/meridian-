@@ -246,7 +246,15 @@ export default function Home() {
               In development · pilot Apr 2027
             </div>
           </div>
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
+          <div className="mt-10 overflow-hidden rounded-2xl border border-border">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/ship.png"
+              alt="Container vessel at sea carrying Marevo containers"
+              className="max-h-[380px] w-full object-cover"
+            />
+          </div>
+          <div className="mt-6 grid gap-5 md:grid-cols-3">
             <div className="card p-6">
               <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-accent">Laytime engine</div>
               <h3 className="mt-3 font-semibold">SOF in, laytime statement out</h3>

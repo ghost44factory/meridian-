@@ -39,6 +39,13 @@ export default function Investors() {
       </section>
 
       <section className="mx-auto max-w-4xl px-5 py-10">
+        <div className="overflow-hidden rounded-2xl border border-border">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/container.png" alt="Marevo-branded shipping container" className="w-full" />
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-4xl px-5 py-10">
         <h2 className="text-2xl font-semibold">Why this wins</h2>
         <div className="mt-6 space-y-4">
           <Point n="01" title="Self-funding sales motion" body="The free retro-audit turns a cold prospect into a customer with one number: what they could have recovered. The product pays for itself before we invoice." />

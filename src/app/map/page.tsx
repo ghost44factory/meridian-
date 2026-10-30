@@ -21,12 +21,20 @@ type Vessel = {
   congestion: "Low" | "Moderate" | "Severe";
   heading: number;
   region: "Pacific" | "Atlantic" | "Suez" | "Other";
+  imo: string;
+  flag: string;
+  callsign: string;
+  draught: string;
+  teuCapacity: string;
+  lastEvent: string;
   containers?: Array<{
     no: string;
     cargo: string;
     weight: string;
     freeTimeHours: number;
     risk: "on" | "risk" | "demurrage";
+    bl: string;
+    seal: string;
   }>;
 };
 
@@ -63,6 +71,12 @@ function generateVessels(): Vessel[] {
       congestion: (["Low", "Moderate", "Severe"] as const)[i % 3],
       heading: 45 + ((i * 17) % 315),
       region: REGIONS[laneIdx],
+      imo: `${9400000 + i * 1373}`,
+      flag: ["Panama", "Liberia", "Marshall Is.", "Malta", "Hong Kong", "Singapore"][i % 6],
+      callsign: `${["3F", "A8", "V7", "9H", "VR", "9V"][i % 6]}${String.fromCharCode(65 + (i % 24))}${1000 + i * 7}`,
+      draught: `${(11 + (i % 5) + (i % 10) / 10).toFixed(1)}m`,
+      teuCapacity: `${(8 + (i % 14)).toLocaleString()},${["250", "400", "850", "120"][i % 4]} TEU`,
+      lastEvent: ["Departed " + PORTS[(i + 3) % PORTS.length], "Passed Suez transit", "Pilot on board", "Cleared port limits", "Anchored — roads"][i % 5],
       containers: isHighlight
         ? [
             {
@@ -71,6 +85,8 @@ function generateVessels(): Vessel[] {
               weight: `${18 + (i % 8)}.${i % 10}t`,
               freeTimeHours: status === "demurrage" ? -12 : status === "risk" ? 18 : 96,
               risk: status === "dim" ? "on" : status,
+              bl: `MAEU${260900 + i * 31}`,
+              seal: `CN${771000 + i * 97}`,
             },
             {
               no: `TCLU${5000000 + i * 211}`,
@@ -78,6 +94,8 @@ function generateVessels(): Vessel[] {
               weight: `${12 + (i % 6)}.${(i + 3) % 10}t`,
               freeTimeHours: status === "demurrage" ? -36 : status === "risk" ? 8 : 72,
               risk: status === "dim" ? "on" : status,
+              bl: `COSU${618400 + i * 53}`,
+              seal: `CN${882000 + i * 89}`,
             },
           ]
         : undefined,
@@ -278,8 +296,14 @@ function VesselPanel({ vessel, onClose }: { vessel: Vessel; onClose: () => void 
       </div>
 
       <div className="mt-6 grid grid-cols-2 gap-3 font-mono text-xs">
+        <PanelStat label="IMO" value={vessel.imo} />
+        <PanelStat label="Flag" value={vessel.flag} />
+        <PanelStat label="Callsign" value={vessel.callsign} />
+        <PanelStat label="Capacity" value={vessel.teuCapacity} />
         <PanelStat label="Speed" value={`${14 + Math.round(vessel.progress * 8)}kn`} />
         <PanelStat label="Heading" value={`${vessel.heading.toFixed(0)}°`} />
+        <PanelStat label="Draught" value={vessel.draught} />
+        <PanelStat label="Last event" value={vessel.lastEvent} />
         <PanelStat label="Next port" value={vessel.nextPort} />
         <PanelStat label="ETA" value={vessel.eta} />
         <PanelStat
@@ -314,7 +338,11 @@ function VesselPanel({ vessel, onClose }: { vessel: Vessel; onClose: () => void 
                 </span>
               </div>
               <div className="mt-1 text-sm">{c.cargo}</div>
-              <div className="font-mono text-xs text-mist">{c.weight}</div>
+              <div className="mt-1 flex flex-wrap gap-x-4 font-mono text-[10px] text-mist">
+                <span>{c.weight}</span>
+                <span>BL {c.bl}</span>
+                <span>Seal {c.seal}</span>
+              </div>
               <div className="mt-2 h-1 overflow-hidden rounded-full bg-surface-2">
                 <div
                   className="h-full"

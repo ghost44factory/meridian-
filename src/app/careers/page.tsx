@@ -56,25 +56,10 @@ export default function Careers() {
           </div>
 
           {/* Lanyard */}
-          <div className="relative mx-auto hidden h-[420px] w-72 lg:block">
-            <svg viewBox="0 0 100 60" className="absolute left-1/2 top-0 w-40 -translate-x-1/2">
-              <path d="M18 0 L50 56 L82 0" fill="none" stroke="var(--accent)" strokeWidth="9" />
-              <path d="M18 0 L50 56 L82 0" fill="none" stroke="#00000022" strokeWidth="9" strokeDasharray="1.5 3" />
-            </svg>
-            <div className="absolute left-1/2 top-[88px] w-60 -translate-x-1/2 rotate-[-3deg] rounded-2xl border border-border bg-surface p-5 shadow-2xl">
-              <div className="mx-auto h-2.5 w-10 rounded-full bg-surface-2" />
-              <div className="mt-5 flex items-center gap-2.5">
-                <Logo />
-              </div>
-              <div className="mt-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-accent-soft font-display text-3xl font-semibold text-accent">
-                ?
-              </div>
-              <div className="mt-4 text-lg font-semibold">Your name here</div>
-              <div className="text-sm text-muted">Founding team</div>
-              <div className="mt-4 flex items-center justify-between border-t border-border pt-3">
-                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-accent">№ 002</span>
-                <span className="font-mono text-[10px] text-muted">LHR · DXB</span>
-              </div>
+          <div className="relative mx-auto hidden w-80 lg:block">
+            <div className="overflow-hidden rounded-3xl border border-border shadow-2xl">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/brand/lanyard.png" alt="Marevo founding-team lanyard badge" className="w-full" />
             </div>
           </div>
         </div>
