@@ -5,11 +5,11 @@ import { ArrowRight } from "lucide-react";
 export const metadata = { title: "Investors — Marevo" };
 
 const PROJECTIONS = [
-  { year: "Year 1", customers: "10", arr: "£180k" },
-  { year: "Year 2", customers: "40", arr: "£850k" },
-  { year: "Year 3", customers: "100", arr: "£2.2M" },
-  { year: "Year 4", customers: "200", arr: "£4.8M" },
-  { year: "Year 5", customers: "350", arr: "£8.5M" },
+  { year: "Year 1", customers: "12", arr: "£290k" },
+  { year: "Year 2", customers: "48", arr: "£1.3M" },
+  { year: "Year 3", customers: "120", arr: "£3.4M" },
+  { year: "Year 4", customers: "230", arr: "£7.2M" },
+  { year: "Year 5", customers: "400", arr: "£13M" },
 ];
 
 export default function Investors() {
@@ -32,7 +32,7 @@ export default function Investors() {
       <section className="mx-auto max-w-4xl px-5 py-10">
         <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
           <InvStat big="20–30%" label="of disputed charges are overturned (FMC data)" />
-          <InvStat big="£21k" label="ARR per mid-size customer at ~75% gross margin" />
+          <InvStat big="£24k" label="ARR per mid-size customer at ~75% gross margin" />
           <InvStat big="<£30/mo" label="total infrastructure cost of the live product" />
           <InvStat big="Live" label="product, pipeline and demo — built in weeks, not years" />
         </div>
@@ -49,7 +49,7 @@ export default function Investors() {
         <h2 className="text-2xl font-semibold">Why this wins</h2>
         <div className="mt-6 space-y-4">
           <Point n="01" title="Self-funding sales motion" body="The free retro-audit turns a cold prospect into a customer with one number: what they could have recovered. The product pays for itself before we invoice." />
-          <Point n="02" title="A wedge that widens into oil" body="D&D disputes are the entry. The same engine extends to full freight-invoice audit, carrier data, recovery financing — and voyage demurrage for tanker and bulker owners, where crude demurrage runs $30k+/day and single claims hit $500k. That market alone is measured in billions." />
+          <Point n="02" title="A wedge that widens into oil" body="D&D disputes are the entry. The same engine extends to voyage demurrage for tanker and bulker owners — VLCC demurrage runs $45–52k/day in a normal market (Argus) and hit several hundred thousand/day in the 2026 Gulf crisis, when soaring freight added $5.4B to Shell's shipping costs in one quarter. Dry-bulk demurrage alone is an $8–10B/yr pool (Marcura), ~99% of port timesheets are still processed by hand, and the owner portal is already live in our demo." />
           <Point n="03" title="Data compounds" body="Every audit teaches the system which carriers overcharge, where, and what wins. At scale that dataset is a product of its own — and a moat no entrant starts with." />
           <Point n="04" title="AI-native economics" body="One founder and an AI stack shipped what a seed-stage team builds in a year. Headcount follows revenue, not the other way round." />
         </div>
@@ -99,9 +99,14 @@ export default function Investors() {
             >
               Open the portal <ArrowRight className="h-4 w-4" />
             </Link>
-            <code className="rounded-lg border border-border bg-surface-2 px-4 py-2.5 font-mono text-xs">
-              investor@marevo.app · MarevoTour2026
-            </code>
+            <div className="flex flex-col gap-2">
+              <code className="rounded-lg border border-border bg-surface-2 px-4 py-2.5 font-mono text-xs">
+                Cargo side — investor@marevo.app · MarevoTour2026
+              </code>
+              <code className="rounded-lg border border-border bg-surface-2 px-4 py-2.5 font-mono text-xs">
+                Owner side — owner@marevo.app · MarevoOwner2026
+              </code>
+            </div>
           </div>
         </div>
       </section>

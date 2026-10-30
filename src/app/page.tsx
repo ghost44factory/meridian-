@@ -63,7 +63,7 @@ export default function Home() {
                 Dispute resolved
               </div>
               <div className="mt-1 flex items-baseline gap-2">
-                <span className="font-mono text-2xl font-semibold text-accent">+£680</span>
+                <span className="font-mono text-2xl font-semibold text-accent">+£1,640</span>
                 <span className="text-xs text-muted">credited by carrier</span>
               </div>
               <TimelineMini />
@@ -238,12 +238,14 @@ export default function Home() {
               <p className="mt-4 text-muted">
                 Containers are where we started. Voyage demurrage — the laytime claims
                 between owners and charterers on tankers and bulkers — is the same dispute
-                with two more zeros. Oil is the heartland: demurrage on a crude tanker runs
-                $30k+ a day, and the majors keep entire departments to fight it.
+                with two more zeros. Oil is the heartland: a crude tanker on demurrage bills
+                $45–80k a day in a normal market — and multiples of that in the 2026 Gulf
+                disruption, which added $5.4B to one oil major&apos;s shipping bill in a single
+                quarter. The majors keep entire departments to fight it.
               </p>
             </div>
             <div className="pill border border-accent/40 bg-accent-soft text-accent">
-              In development · pilot Apr 2027
+              Owner portal live in demo · full pilot Apr 2027
             </div>
           </div>
           <div className="mt-10 overflow-hidden rounded-2xl border border-border">
@@ -288,6 +290,12 @@ export default function Home() {
             >
               Become a design partner <ArrowRight className="h-4 w-4" />
             </a>
+            <Link
+              href="/app/login"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 text-sm font-medium transition hover:bg-surface-2"
+            >
+              Open the owner demo <ArrowRight className="h-4 w-4" />
+            </Link>
             <p className="text-sm text-muted">
               <strong className="text-fg">Pilot pricing:</strong> no subscription — 10% of recovered
               demurrage or despatch. Founding design partners pay 5%, locked for two years.
@@ -311,7 +319,7 @@ export default function Home() {
           <RoadmapItem when="Jan 2027" tag="PLANNED" title="Connect your inbox" body="One-click, read-only Gmail and Outlook connection — we find carrier emails automatically, including last year's, so your free retro-audit becomes instant." />
           <RoadmapItem when="Feb 2027" tag="PLANNED" title="Live AIS vessel feed" body="Terminal and satellite data switch the map from estimated to real-time positions, port congestion included." />
           <RoadmapItem when="Mar 2027" tag="PLANNED" title="Auto-filed disputes + recovery-based billing" body="Set approval rules once and strong-evidence disputes file themselves. Billing runs automatically on recovered money." />
-          <RoadmapItem when="Apr 2027" tag="PILOT" title="Voyage demurrage for owners & charterers" body="The audit engine pointed at charter parties, laytime statements and $50k–$500k voyage claims." last />
+          <RoadmapItem when="Apr 2027" tag="DEMO LIVE" title="Voyage demurrage for owners & charterers" body="Owner portal is live in demo today — laytime positions, exposure and claims. Full SOF automation and the owner pilot land Apr 2027." last />
         </ol>
       </section>
 
@@ -323,6 +331,27 @@ export default function Home() {
           <Faq q="What do we have to upload?" a="Almost nothing by hand. Auto-forward carrier emails to your Marevo address; upload each carrier contract once a year. Everything else is extracted automatically." />
           <Faq q="Is our data safe?" a="Each customer's data is isolated at the database level with row-level security, stored encrypted in a private bucket, UK/EU region. Your documents are never shared or used to train public models." />
           <Faq q="What if we stop getting charges?" a="Perfect — that's the prevention layer doing its job. The subscription covers tracking, alerts and audit; the success fee only ever applies to what we actually recover." />
+        </div>
+      </section>
+
+      {/* ---------- PORT FILM ---------- */}
+      <section className="mx-auto max-w-6xl px-5 pb-24">
+        <div className="relative overflow-hidden rounded-2xl border border-border">
+          <video
+            src="/brand/port.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full"
+            aria-label="Animated Marevo port — cranes moving green and black Marevo containers"
+          />
+          <div className="pointer-events-none absolute inset-0 flex items-end bg-gradient-to-t from-black/60 via-transparent to-transparent">
+            <div className="p-8 md:p-10">
+              <div className="font-display text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70">Marevo</div>
+              <div className="mt-1 font-display text-3xl font-semibold text-white md:text-4xl">Ship money back.</div>
+            </div>
+          </div>
         </div>
       </section>
 
