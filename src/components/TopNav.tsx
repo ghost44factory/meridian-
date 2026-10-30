@@ -6,23 +6,23 @@ import { supabase } from "@/lib/supabase";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 export function MarevoMark({ className = "h-5 w-auto" }: { className?: string }) {
+  // Licensed M-arrow mark: dark version on light theme, mint on dark.
   return (
-    <svg viewBox="0 0 150 120" className={className} fill="currentColor" aria-hidden>
-      <path d="M16 46 L34 14 L52 46 L43 46 L43 106 L25 106 L25 46 Z" />
-      <path d="M98 46 L116 14 L134 46 L125 46 L125 106 L107 106 L107 46 Z" />
-      <path d="M52 22 L66 22 L75 44 L84 22 L98 22 L84 56 L91 56 L75 88 L59 56 L66 56 Z" />
-    </svg>
+    <>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/brand/mark-dark.png" alt="" className={`${className} dark:hidden`} />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/brand/mark-mint.png" alt="" className={`${className} hidden dark:block`} />
+    </>
   );
 }
 
 export function Logo({ size = "base" }: { size?: "base" | "lg" }) {
   return (
     <span className="flex items-center gap-2.5">
-      <span className="text-accent">
-        <MarevoMark className={size === "lg" ? "h-7 w-auto" : "h-6 w-auto"} />
-      </span>
+      <MarevoMark className={size === "lg" ? "h-6 w-auto" : "h-5 w-auto"} />
       <span className={`font-semibold tracking-tight ${size === "lg" ? "text-xl" : "text-[17px]"}`}>
-        Marevo
+        marevo
       </span>
     </span>
   );
