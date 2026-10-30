@@ -114,7 +114,7 @@ const STATUS_COLORS: Record<Vessel["status"], string> = {
   on: "var(--accent)",
   risk: "var(--warn)",
   demurrage: "var(--danger)",
-  dim: "#3d5478",
+  dim: "#41464e",
 };
 
 
@@ -157,12 +157,12 @@ export default function MapPage() {
   const cargoCount = filteredVessels.reduce((a, v) => a + (v.containers?.length ?? 0), 0);
 
   return (
-    <div className="dark relative min-h-screen text-paper" style={{ background: "#0b1220" }}>
+    <div className="dark relative min-h-screen text-paper" style={{ background: "#0a0b0d" }}>
       <TopNav />
 
       <div className="fixed left-0 right-0 top-16 z-30 flex flex-wrap items-center gap-3 px-6 py-3">
         <div>
-          <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-cyan">
+          <div className="font-display font-semibold text-[10px] uppercase tracking-[0.18em] text-cyan">
             Command center · demo data
           </div>
           <h1 className="font-display text-xl font-semibold">Live tracking — Global</h1>
@@ -190,19 +190,19 @@ export default function MapPage() {
         </div>
       </div>
 
-      <div className="relative h-screen w-full pt-28" style={{ background: "#0b1220" }}>
+      <div className="relative h-screen w-full pt-28" style={{ background: "#0a0b0d" }}>
         <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} className="h-full w-full" preserveAspectRatio="xMidYMid meet">
           <defs>
             <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a2540" strokeWidth="0.5" />
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a1c20" strokeWidth="0.5" />
             </pattern>
           </defs>
-          <rect width={MAP_W} height={MAP_H} fill="#0b1220" />
+          <rect width={MAP_W} height={MAP_H} fill="#0a0b0d" />
           <rect width={MAP_W} height={MAP_H} fill="url(#grid)" />
-          <path d={WORLD_PATH} fill="#132038" stroke="#22354f" strokeWidth="0.7" strokeLinejoin="round" />
+          <path d={WORLD_PATH} fill="#16181c" stroke="#26292e" strokeWidth="0.7" strokeLinejoin="round" />
           {SHIPPING_LANES.map((lane, i) =>
             lanePolylines(lane).map((points, j) => (
-              <polyline key={`${i}-${j}`} points={points} fill="none" stroke="#2a4266" strokeWidth="0.9" strokeDasharray="3 5" />
+              <polyline key={`${i}-${j}`} points={points} fill="none" stroke="#31353b" strokeWidth="0.9" strokeDasharray="3 5" />
             ))
           )}
           {filteredVessels.map((v) => {
@@ -232,12 +232,12 @@ export default function MapPage() {
         </svg>
 
         <div className="glass-panel absolute bottom-6 left-6 rounded-xl p-4">
-          <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.25em] text-mist">Legend</div>
+          <div className="mb-2 font-display font-semibold text-[10px] uppercase tracking-[0.18em] text-mist">Legend</div>
           <div className="space-y-1.5 text-xs">
             <LegendRow color="var(--accent)" label="On schedule" />
             <LegendRow color="var(--warn)" label="Free-time risk" />
             <LegendRow color="var(--danger)" label="Active demurrage" />
-            <LegendRow color="#3d5478" label="Background traffic" />
+            <LegendRow color="#41464e" label="Background traffic" />
           </div>
         </div>
 
@@ -289,7 +289,7 @@ function VesselPanel({ vessel, onClose }: { vessel: Vessel; onClose: () => void 
     >
       <div className="flex items-start justify-between">
         <div>
-          <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-cyan">Vessel</div>
+          <div className="font-display font-semibold text-[10px] uppercase tracking-[0.18em] text-cyan">Vessel</div>
           <h2 className="mt-1 font-display text-2xl font-semibold">{vessel.name}</h2>
           <div className="text-sm text-mist">{vessel.carrier}</div>
         </div>
@@ -411,7 +411,7 @@ function VesselPanel({ vessel, onClose }: { vessel: Vessel; onClose: () => void 
 
       <Link
         href="/"
-        className="mt-6 block text-center font-mono text-[10px] uppercase tracking-[0.25em] text-mist hover:text-paper"
+        className="mt-6 block text-center font-display font-semibold text-[10px] uppercase tracking-[0.18em] text-mist hover:text-paper"
       >
         ← Back to home
       </Link>

@@ -75,7 +75,7 @@ Northwind Logistics`;
   if (loading)
     return (
       <AppShell>
-        <div className="py-20 text-center font-mono text-xs uppercase tracking-[0.3em] text-mist">Loading…</div>
+        <div className="py-20 text-center font-display font-semibold text-xs uppercase tracking-[0.2em] text-mist">Loading…</div>
       </AppShell>
     );
   if (!inv)
@@ -96,7 +96,7 @@ Northwind Logistics`;
 
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <div className="font-mono text-[11px] uppercase tracking-wider text-mist">{inv.carrier}</div>
+          <div className="font-display font-semibold text-[11px] uppercase tracking-[0.14em] text-mist">{inv.carrier}</div>
           <h1 className="font-mono text-2xl font-semibold">{inv.invoice_no}</h1>
           <div className="mt-1 text-sm text-mist">
             Issued {formatDate(inv.issued_at)} · container{" "}
@@ -120,7 +120,7 @@ Northwind Logistics`;
             disputable ? "border-coral/40 bg-coral/5" : "border-cyan/30 bg-cyan/5"
           }`}
         >
-          <div className={`font-mono text-[10px] uppercase tracking-[0.25em] ${disputable ? "text-coral" : "text-cyan"}`}>
+          <div className={`font-display font-semibold text-[10px] uppercase tracking-[0.18em] ${disputable ? "text-coral" : "text-cyan"}`}>
             Audit findings
           </div>
           <div className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-paper/90">{inv.audit_findings}</div>

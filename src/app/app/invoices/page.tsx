@@ -75,7 +75,7 @@ export default function InvoicesPage() {
           >
             <div className="flex items-start justify-between">
               <div>
-                <div className="font-mono text-[11px] uppercase tracking-wider text-mist">{i.carrier}</div>
+                <div className="font-display font-semibold text-[11px] uppercase tracking-[0.14em] text-mist">{i.carrier}</div>
                 <div className="mt-0.5 font-mono text-sm">{i.invoice_no}</div>
               </div>
               <div className="text-right">

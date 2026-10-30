@@ -57,7 +57,7 @@ export function RoiCalculator() {
         </div>
         <div className="flex flex-col justify-center gap-5 border-border md:border-l md:pl-8">
           <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-mist">
+            <div className="font-display font-semibold text-[10px] uppercase tracking-[0.18em] text-mist">
               Estimated recovery / year
             </div>
             <div className="mt-1 font-display text-4xl font-semibold text-cyan">
@@ -65,7 +65,7 @@ export function RoiCalculator() {
             </div>
           </div>
           <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-mist">
+            <div className="font-display font-semibold text-[10px] uppercase tracking-[0.18em] text-mist">
               Charges prevented / year
             </div>
             <div className="mt-1 font-display text-3xl font-semibold text-amber">

@@ -72,7 +72,7 @@ export default function ShipmentsPage() {
       <div className="mt-5 overflow-hidden rounded-xl border border-panel-border" style={{ background: "var(--surface)" }}>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-border text-left font-mono text-[10px] uppercase tracking-wider text-mist">
+            <tr className="border-b border-border text-left font-display font-semibold text-[10px] uppercase tracking-[0.14em] text-mist">
               <th className="px-4 py-3 font-normal">Container</th>
               <th className="px-4 py-3 font-normal">Carrier</th>
               <th className="px-4 py-3 font-normal">Lane</th>

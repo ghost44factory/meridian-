@@ -37,7 +37,7 @@ export default function AdminConsole() {
   if (allowed === null)
     return (
       <AppShell>
-        <div className="py-20 text-center font-mono text-xs uppercase tracking-[0.3em] text-mist">Checking access…</div>
+        <div className="py-20 text-center font-display font-semibold text-xs uppercase tracking-[0.2em] text-mist">Checking access…</div>
       </AppShell>
     );
   if (!allowed) return null;
@@ -49,7 +49,7 @@ export default function AdminConsole() {
     <AppShell>
       <div className="flex items-center gap-3">
         <h1 className="font-display text-xl font-semibold">Admin console</h1>
-        <span className="rounded-full bg-amber/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-amber">
+        <span className="rounded-full bg-amber/15 px-2.5 py-1 font-display font-semibold text-[10px] uppercase tracking-[0.14em] text-amber">
           Staff only
         </span>
       </div>
@@ -68,7 +68,7 @@ export default function AdminConsole() {
         <div className="border-b border-border px-5 py-3.5 text-sm font-semibold">Customers</div>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-border text-left font-mono text-[10px] uppercase tracking-wider text-mist">
+            <tr className="border-b border-border text-left font-display font-semibold text-[10px] uppercase tracking-[0.14em] text-mist">
               <th className="px-5 py-3 font-normal">Organisation</th>
               <th className="px-5 py-3 font-normal">Active shipments</th>
               <th className="px-5 py-3 font-normal">Disputable invoices</th>

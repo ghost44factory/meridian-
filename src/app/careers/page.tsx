@@ -73,7 +73,7 @@ export default function Careers() {
                 <h2 className="text-lg font-semibold">{r.title}</h2>
                 <span className="pill bg-accent-soft text-accent">{r.where}</span>
               </div>
-              <div className="mt-1 font-mono text-[11px] uppercase tracking-wider text-muted">{r.type}</div>
+              <div className="mt-1 font-display font-semibold text-[11px] uppercase tracking-[0.14em] text-muted">{r.type}</div>
               <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{r.body}</p>
               <a
                 href={`mailto:hello@marevohq.com?subject=${encodeURIComponent("Application: " + r.title)}`}

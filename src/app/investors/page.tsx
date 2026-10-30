@@ -60,7 +60,7 @@ export default function Investors() {
         <div className="card mt-6 overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-border text-left font-mono text-[11px] uppercase tracking-wider text-muted">
+              <tr className="border-b border-border text-left font-display font-semibold text-[11px] uppercase tracking-[0.14em] text-muted">
                 <th className="px-5 py-3">Period</th>
                 <th className="px-5 py-3">Customers</th>
                 <th className="px-5 py-3">ARR</th>

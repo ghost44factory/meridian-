@@ -34,7 +34,7 @@ export function ShipmentDetail() {
   if (loading)
     return (
       <AppShell>
-        <div className="py-20 text-center font-mono text-xs uppercase tracking-[0.3em] text-mist">Loading…</div>
+        <div className="py-20 text-center font-display font-semibold text-xs uppercase tracking-[0.2em] text-mist">Loading…</div>
       </AppShell>
     );
   if (!ship)
@@ -60,7 +60,7 @@ export function ShipmentDetail() {
       </Link>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <div className="font-mono text-[11px] uppercase tracking-wider text-mist">{String(ship.carrier)} · {String(ship.vessel_name ?? "")}</div>
+          <div className="font-display font-semibold text-[11px] uppercase tracking-[0.14em] text-mist">{String(ship.carrier)} · {String(ship.vessel_name ?? "")}</div>
           <h1 className="font-mono text-2xl font-semibold">{String(ship.container_no)}</h1>
           <div className="mt-1 text-sm text-mist">
             {String(ship.origin_port)} → {String(ship.destination_port)} · BL <span className="font-mono">{String(ship.bl_no ?? "—")}</span>

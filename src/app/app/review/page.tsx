@@ -56,14 +56,14 @@ export default function ReviewPage() {
           <Panel key={doc.id} className="p-5">
             <div className="flex items-center justify-between">
               <div className="max-w-[60%] truncate font-mono text-xs">{doc.file_path?.split("/").pop()}</div>
-              <span className="font-mono text-[10px] uppercase tracking-wider text-amber">
+              <span className="font-display font-semibold text-[10px] uppercase tracking-[0.14em] text-amber">
                 {doc.confidence ? `${Math.round(Number(doc.confidence) * 100)}% confidence` : "unscored"}
               </span>
             </div>
             <div className="mt-4 space-y-2">
               {Object.entries(doc.extracted_fields ?? {}).map(([k, v]) => (
                 <div key={k} className="flex items-center gap-3">
-                  <label className="w-32 shrink-0 font-mono text-[10px] uppercase tracking-wider text-mist">
+                  <label className="w-32 shrink-0 font-display font-semibold text-[10px] uppercase tracking-[0.14em] text-mist">
                     {k.replace(/_/g, " ")}
                   </label>
                   <input

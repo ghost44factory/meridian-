@@ -256,7 +256,7 @@ export default function Home() {
           </div>
           <div className="mt-6 grid gap-5 md:grid-cols-3">
             <div className="card p-6">
-              <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-accent">Laytime engine</div>
+              <div className="font-display font-semibold text-[11px] uppercase tracking-[0.18em] text-accent">Laytime engine</div>
               <h3 className="mt-3 font-semibold">SOF in, laytime statement out</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
                 Statements of facts parsed automatically; laytime computed against the
@@ -264,7 +264,7 @@ export default function Home() {
               </p>
             </div>
             <div className="card p-6">
-              <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-accent">Charter-party aware</div>
+              <div className="font-display font-semibold text-[11px] uppercase tracking-[0.18em] text-accent">Charter-party aware</div>
               <h3 className="mt-3 font-semibold">Your CP is the contract</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
                 The same clause-level audit we run on container contracts, pointed at
@@ -272,7 +272,7 @@ export default function Home() {
               </p>
             </div>
             <div className="card p-6">
-              <div className="font-mono text-[11px] uppercase tracking-[0.25em] text-accent">Claims that matter</div>
+              <div className="font-display font-semibold text-[11px] uppercase tracking-[0.18em] text-accent">Claims that matter</div>
               <h3 className="mt-3 font-semibold">$50k–$500k per voyage</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
                 A single tanker or bulker claim is 100× a container dispute — one crude

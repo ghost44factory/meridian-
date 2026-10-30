@@ -87,7 +87,7 @@ export default function DisputesPage() {
               style={{ background: "var(--surface-2)" }}
             >
               <div className="mb-3 flex items-center justify-between px-1">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-mist">{col.label}</span>
+                <span className="font-display font-semibold text-[10px] uppercase tracking-[0.16em] text-mist">{col.label}</span>
                 <span className="font-mono text-[10px] text-mist">{cards.length}</span>
               </div>
               <div className="space-y-2">
@@ -134,7 +134,7 @@ export default function DisputesPage() {
           <div className="glass-panel max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-2xl p-6" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-start justify-between">
               <div>
-                <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-cyan">Dispute</div>
+                <div className="font-display font-semibold text-[10px] uppercase tracking-[0.18em] text-cyan">Dispute</div>
                 <h2 className="mt-1 font-mono text-lg font-semibold">{selected.invoices?.invoice_no ?? "Manual dispute"}</h2>
                 <div className="text-xs text-mist">
                   {selected.invoices?.carrier} · deadline {formatDate(selected.deadline_at)} · claimed {formatCurrency(selected.amount_claimed)}
@@ -145,7 +145,7 @@ export default function DisputesPage() {
               </button>
             </div>
 
-            <label className="mt-5 block font-mono text-[10px] uppercase tracking-[0.25em] text-mist">Dispute letter</label>
+            <label className="mt-5 block font-display font-semibold text-[10px] uppercase tracking-[0.18em] text-mist">Dispute letter</label>
             <textarea
               value={selected.letter_text ?? ""}
               onChange={(e) => setSelected({ ...selected, letter_text: e.target.value })}

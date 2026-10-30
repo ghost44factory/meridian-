@@ -98,20 +98,20 @@ export function MapShowcase() {
   const cardTop = Math.min(38, Math.max(4, apy - 18));
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-border" style={{ background: "#0b1220" }}>
+    <div className="relative overflow-hidden rounded-2xl border border-border" style={{ background: "#0a0b0d" }}>
       <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} className="w-full">
-        <rect width={MAP_W} height={MAP_H} fill="#0b1220" />
-        <path d={WORLD_PATH} fill="#132038" stroke="#22354f" strokeWidth="0.7" strokeLinejoin="round" />
+        <rect width={MAP_W} height={MAP_H} fill="#0a0b0d" />
+        <path d={WORLD_PATH} fill="#16181c" stroke="#26292e" strokeWidth="0.7" strokeLinejoin="round" />
         {SHOW_LANES.map((lane, i) =>
           lanePolylines(lane).map((points, j) => (
-            <polyline key={`${i}-${j}`} points={points} fill="none" stroke="#2a4266" strokeWidth="0.9" strokeDasharray="3 5" />
+            <polyline key={`${i}-${j}`} points={points} fill="none" stroke="#31353b" strokeWidth="0.9" strokeDasharray="3 5" />
           ))
         )}
         {AMBIENT.map((a, i) => {
           const p = pos(a.lane, a.base);
           return (
             <g key={i} transform={`translate(${p.x} ${p.y})`}>
-              <ShipGlyph color="#3d5478" travelAngle={p.angle} scale={0.9} />
+              <ShipGlyph color="#41464e" travelAngle={p.angle} scale={0.9} />
             </g>
           );
         })}
@@ -140,7 +140,7 @@ export function MapShowcase() {
         style={{ translateX: "-20%", translateY: "-20%" }}
       >
         <svg width="18" height="18" viewBox="0 0 24 24">
-          <path d="M4 2 L20 12 L12 13.5 L8.5 21 Z" fill="#fff" stroke="#0b1220" strokeWidth="1.5" />
+          <path d="M4 2 L20 12 L12 13.5 L8.5 21 Z" fill="#fff" stroke="#0a0b0d" strokeWidth="1.5" />
         </svg>
       </motion.div>
 
@@ -153,7 +153,7 @@ export function MapShowcase() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 6, scale: 0.98 }}
             transition={{ duration: 0.25 }}
-            className="absolute z-20 w-60 rounded-xl border border-white/10 bg-[#141a26]/95 p-3.5 shadow-2xl backdrop-blur"
+            className="absolute z-20 w-60 rounded-xl border border-white/10 bg-[#16181c]/95 p-3.5 shadow-2xl backdrop-blur"
             style={{ left: `${cardLeft}%`, top: `${cardTop}%` }}
           >
             <div className="flex items-center justify-between">
@@ -175,7 +175,7 @@ export function MapShowcase() {
         )}
       </AnimatePresence>
 
-      <div className="pointer-events-none absolute left-4 top-4 z-10 rounded-full border border-white/10 bg-black/40 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.25em] text-[#6be3a9] backdrop-blur">
+      <div className="pointer-events-none absolute left-4 top-4 z-10 rounded-full border border-white/10 bg-black/40 px-3 py-1.5 font-display font-semibold text-[10px] uppercase tracking-[0.18em] text-[#6be3a9] backdrop-blur">
         Live demo · real product
       </div>
     </div>
